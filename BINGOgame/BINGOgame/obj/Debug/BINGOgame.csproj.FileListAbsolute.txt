@@ -1,0 +1,16 @@
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\bin\Debug\BINGOgame.exe.config
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\bin\Debug\BINGOgame.exe
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\bin\Debug\BINGOgame.pdb
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\MainWindow.g.cs
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\App.g.cs
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\BINGOgame_MarkupCompile.cache
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\BINGOgame_MarkupCompile.lref
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\MainWindow.baml
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\BINGOgame.g.resources
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\BINGOgame.Properties.Resources.resources
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\BINGOgame.csproj.GenerateResource.cache
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\BINGOgame.csproj.CoreCompileInputs.cache
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\BINGOgame.exe
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\BINGOgame.pdb
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\bingoWindow.g.cs
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\bingoWindow.baml
