@@ -52,6 +52,7 @@ namespace BINGOgame
             /* テキストファイルからデータを読み出す */
             if (result_t.NG == textRead())
             {
+                MessageBox.Show("config.txtの形式が正しくありません。");
                 Application.Current.Shutdown();
             }
 
@@ -441,11 +442,62 @@ namespace BINGOgame
             }
 
             /* ビンゴカードウィンドウを作成する */
-            var bingo_card = new bingoWindow(seed, bingo_size, bingo_card_list);
+            var bingo_card = new bingoWindow(hack_name, seed, bingo_size, bingo_card_list);
             bingo_card.Show();
 
 
             this.Close();
+        }
+
+        private void Reload_Button_Click(object sender, RoutedEventArgs e)
+        {
+            /* テキストファイルからデータを読み出す */
+            if (result_t.NG == textRead())
+            {
+                MessageBox.Show("config.txtの形式が正しくありません。");
+                Application.Current.Shutdown();
+            }
+
+            normalStarInfo.Clear();
+            redsStarInfo.Clear();
+            coinsStarInfo.Clear();
+            keyInfo.Clear();
+
+            int i;
+            for (i = 0; i < normal_star_num; i++)
+            {
+                StarInfo test = new StarInfo();
+                test.chk = true;
+                test.name = normal_star_list[i].Replace("@", " ");
+                normalStarInfo.Add(test);
+            }
+
+            for (i = 0; i < reds_star_num; i++)
+            {
+                StarInfo test = new StarInfo();
+                test.chk = true;
+                test.name = reds_star_list[i].Replace("@", " ");
+                redsStarInfo.Add(test);
+            }
+
+            for (i = 0; i < coins_star_num; i++)
+            {
+                StarInfo test = new StarInfo();
+                test.chk = true;
+                test.name = coins_star_list[i].Replace("@", " ");
+                coinsStarInfo.Add(test);
+            }
+
+
+            for (i = 0; i < key_num; i++)
+            {
+                StarInfo test = new StarInfo();
+                test.chk = true;
+                test.name = key_list[i].Replace("@", " ");
+                keyInfo.Add(test);
+            }
+
+
         }
     }
 

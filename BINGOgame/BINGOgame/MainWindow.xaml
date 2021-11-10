@@ -83,7 +83,8 @@
             <TextBlock HorizontalAlignment="Left" Height="20" Margin="10,10,0,0" TextWrapping="Wrap" Text="シード値(最大9桁)" Width="100"/>
             <TextBox x:Name="TextBox_Seed"   HorizontalAlignment="Left" Height="20" Margin="10,0,0,0"  TextWrapping="Wrap" Text=""         Width="100"/>
 
-            <Button HorizontalAlignment="Center" Height="100" Margin="0,550,0,0" Content="OK" Width="100" Click="OK_Button_Click"/>
+            <Button HorizontalAlignment="Center" Height="40" Margin="0,550,0,0" Content="スターリスト&#10;再読み込み" Width="100" Click="Reload_Button_Click"/>
+            <Button HorizontalAlignment="Center" Height="40" Margin="0,20,0,0" Content="OK"         Width="100" Click="OK_Button_Click"/>
 
 
 

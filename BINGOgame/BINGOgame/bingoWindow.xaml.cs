@@ -22,6 +22,7 @@ namespace BINGOgame
     /// </summary>
     public partial class bingoWindow : Window
     {
+        string Hack_name;
         int Seed;
         int Bingo_size;
         string[] Bingo_card_list = new string[256];
@@ -29,12 +30,14 @@ namespace BINGOgame
         /* タイマースタート */
         System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 
-        public bingoWindow(int seed, int bingo_size, string[] bingo_card_list)
+        public bingoWindow(string hack_name, int seed, int bingo_size, string[] bingo_card_list)
         {
             InitializeComponent();
 
             TextBlock_Seed.Text = seed.ToString();
+            this.Title = hack_name + " BINGO";
 
+            Hack_name = hack_name;
             Seed = seed;
             Bingo_size = bingo_size;
             Bingo_card_list = bingo_card_list;
@@ -110,13 +113,6 @@ namespace BINGOgame
             _timer.Tick += new EventHandler(MyTimerMethod);
             // タイマを開始
             _timer.Start();
-        }
-
-        private void MouseDown_Event(object sender, EventArgs e)
-        {
-            /* 光らせる */
-            int cnt = 0;
-            cnt++;
         }
 
         private void TextBlock_PreviewMouseDown(object sender, MouseButtonEventArgs e)

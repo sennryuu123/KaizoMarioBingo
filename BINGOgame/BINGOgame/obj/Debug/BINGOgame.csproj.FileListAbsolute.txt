@@ -14,3 +14,4 @@ C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\BINGOgame.exe
 C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\BINGOgame.pdb
 C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\bingoWindow.g.cs
 C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\bingoWindow.baml
+C:\Users\tomoki\source\repos\BINGOgame\BINGOgame\obj\Debug\BINGOgame.csproj.AssemblyReference.cache
