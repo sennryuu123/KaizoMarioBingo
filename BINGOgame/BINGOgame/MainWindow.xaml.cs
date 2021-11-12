@@ -52,7 +52,6 @@ namespace BINGOgame
             /* テキストファイルからデータを読み出す */
             if (result_t.NG == textRead())
             {
-                MessageBox.Show("config.txtの形式が正しくありません。");
                 Application.Current.Shutdown();
             }
 
@@ -180,7 +179,7 @@ namespace BINGOgame
                 }
                 else
                 {
-                    MessageBox.Show("Please Check Config.txt GG!!!");
+                    MessageBox.Show("config.txtの内容が不適です。");
                     return (result_t.NG);
                 }
             }
@@ -340,7 +339,7 @@ namespace BINGOgame
             int bingo_size;
             int upper_star_num;
             int seed;
-            int i = 0;
+            int i;
 
             /* 配置するスターリスト取得 */
             i = 0;
@@ -423,12 +422,16 @@ namespace BINGOgame
             int temp_index;
             int cnt = 0;
 
+            /* ビンゴカードウィンドウを作成する */
+
+            seed += bingo_size;
             Random rnd = new Random(seed);
-            while (cnt < upper_star_num) 
+
+            while (cnt < upper_star_num)
             {
                 temp_index = rnd.Next(0, selected_star_num);
 
-                if (bingo_card_list_index.Contains(temp_index)) 
+                if (bingo_card_list_index.Contains(temp_index))
                 {
                     continue;
                 }
@@ -441,22 +444,64 @@ namespace BINGOgame
                 cnt++;
             }
 
-            /* ビンゴカードウィンドウを作成する */
-            var bingo_card = new bingoWindow(hack_name, seed, bingo_size, bingo_card_list);
-            bingo_card.Show();
+            switch (bingo_size) 
+            {
+                case 3:
+                    var bingo_card3 = new bingoWindow3(hack_name, seed, bingo_size, bingo_card_list);
+                    bingo_card3.Show();
+                    break;
 
+                case 4:
+                    var bingo_card4 = new bingoWindow4(hack_name, seed, bingo_size, bingo_card_list);
+                    bingo_card4.Show();
+                    break;
+
+                case 5:
+                    var bingo_card5 = new bingoWindow5(hack_name, seed, bingo_size, bingo_card_list);
+                    bingo_card5.Show();
+                    break;
+
+                case 6:
+                    var bingo_card6 = new bingoWindow6(hack_name, seed, bingo_size, bingo_card_list);
+                    bingo_card6.Show();
+                    break;
+
+                case 7:
+                    var bingo_card7 = new bingoWindow7(hack_name, seed, bingo_size, bingo_card_list);
+                    bingo_card7.Show();
+                    break;
+
+                case 8:
+                    var bingo_card8 = new bingoWindow8(hack_name, seed, bingo_size, bingo_card_list);
+                    bingo_card8.Show();
+                    break;
+
+                case 9:
+                    var bingo_card9 = new bingoWindow9(hack_name, seed, bingo_size, bingo_card_list);
+                    bingo_card9.Show();
+                    break;
+
+                default:
+                    MessageBox.Show("対応していないビンゴサイズです。");
+                    break;
+            }
 
             this.Close();
         }
+
 
         private void Reload_Button_Click(object sender, RoutedEventArgs e)
         {
             /* テキストファイルからデータを読み出す */
             if (result_t.NG == textRead())
             {
-                MessageBox.Show("config.txtの形式が正しくありません。");
                 Application.Current.Shutdown();
             }
+
+            all_chk_normal.IsChecked = true;
+            all_chk_reds.IsChecked = true;
+            all_chk_coins.IsChecked = true;
+            all_chk_key.IsChecked = true;
 
             normalStarInfo.Clear();
             redsStarInfo.Clear();
@@ -496,8 +541,6 @@ namespace BINGOgame
                 test.name = key_list[i].Replace("@", " ");
                 keyInfo.Add(test);
             }
-
-
         }
     }
 

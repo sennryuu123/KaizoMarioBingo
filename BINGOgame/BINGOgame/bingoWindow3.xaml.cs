@@ -20,7 +20,7 @@ namespace BINGOgame
     /// <summary>
     /// configWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class bingoWindow : Window
+    public partial class bingoWindow3 : Window
     {
         string Hack_name;
         int Seed;
@@ -30,11 +30,12 @@ namespace BINGOgame
         /* タイマースタート */
         System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 
-        public bingoWindow(string hack_name, int seed, int bingo_size, string[] bingo_card_list)
+        public bingoWindow3(string hack_name, int seed, int bingo_size, string[] bingo_card_list)
         {
             InitializeComponent();
 
             TextBlock_Seed.Text = seed.ToString();
+
             this.Title = hack_name + " BINGO";
 
             Hack_name = hack_name;
@@ -54,32 +55,14 @@ namespace BINGOgame
             TextBlock_0_0.Text = Bingo_card_list[0].Replace("@", "\n");
             TextBlock_0_1.Text = Bingo_card_list[1].Replace("@", "\n");
             TextBlock_0_2.Text = Bingo_card_list[2].Replace("@", "\n");
-            TextBlock_0_3.Text = Bingo_card_list[3].Replace("@", "\n");
-            TextBlock_0_4.Text = Bingo_card_list[4].Replace("@", "\n");
 
-            TextBlock_1_0.Text = Bingo_card_list[5].Replace("@", "\n");
-            TextBlock_1_1.Text = Bingo_card_list[6].Replace("@", "\n");
-            TextBlock_1_2.Text = Bingo_card_list[7].Replace("@", "\n");
-            TextBlock_1_3.Text = Bingo_card_list[8].Replace("@", "\n");
-            TextBlock_1_4.Text = Bingo_card_list[9].Replace("@", "\n");
+            TextBlock_1_0.Text = Bingo_card_list[3].Replace("@", "\n");
+            TextBlock_1_1.Text = Bingo_card_list[4].Replace("@", "\n");
+            TextBlock_1_2.Text = Bingo_card_list[5].Replace("@", "\n");
 
-            TextBlock_2_0.Text = Bingo_card_list[10].Replace("@", "\n");
-            TextBlock_2_1.Text = Bingo_card_list[11].Replace("@", "\n");
-            TextBlock_2_2.Text = Bingo_card_list[12].Replace("@", "\n");
-            TextBlock_2_3.Text = Bingo_card_list[13].Replace("@", "\n");
-            TextBlock_2_4.Text = Bingo_card_list[14].Replace("@", "\n");
-
-            TextBlock_3_0.Text = Bingo_card_list[15].Replace("@", "\n");
-            TextBlock_3_1.Text = Bingo_card_list[16].Replace("@", "\n");
-            TextBlock_3_2.Text = Bingo_card_list[17].Replace("@", "\n");
-            TextBlock_3_3.Text = Bingo_card_list[18].Replace("@", "\n");
-            TextBlock_3_4.Text = Bingo_card_list[19].Replace("@", "\n");
-
-            TextBlock_4_0.Text = Bingo_card_list[20].Replace("@", "\n");
-            TextBlock_4_1.Text = Bingo_card_list[21].Replace("@", "\n");
-            TextBlock_4_2.Text = Bingo_card_list[22].Replace("@", "\n");
-            TextBlock_4_3.Text = Bingo_card_list[23].Replace("@", "\n");
-            TextBlock_4_4.Text = Bingo_card_list[24].Replace("@", "\n");
+            TextBlock_2_0.Text = Bingo_card_list[6].Replace("@", "\n");
+            TextBlock_2_1.Text = Bingo_card_list[7].Replace("@", "\n");
+            TextBlock_2_2.Text = Bingo_card_list[8].Replace("@", "\n");
 
             timer.Start(); /* 時刻表示用タイマー */
             SetupTimer();  /* 定期処理用タイマー */
@@ -88,6 +71,11 @@ namespace BINGOgame
 
         private void End_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (!timer.IsRunning)
+            {
+                return;
+            }
+
             /* タイマーストップ */
             timer.Stop();
             _timer.Stop();
@@ -137,5 +125,25 @@ namespace BINGOgame
                 temp.Background = off_color;
             }
         }
+        private void Back_Button_Click(object sender, RoutedEventArgs e)
+        {
+
+            if (MessageBox.Show("ルール設定画面に戻ります\n" +
+                                "よろしいですか？\n",
+                                "Warning",
+                                MessageBoxButton.YesNo,
+                                MessageBoxImage.Warning)
+                                == MessageBoxResult.Yes)
+            {
+                var main_window = new MainWindow();
+                main_window.Show();
+                this.Close();
+            }
+            else
+            {
+                return;
+            }
+        }
+
     }
 }

@@ -55,7 +55,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="bingoWindow.xaml">
+    <Page Include="bingoWindow3.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="bingoWindow7.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="bingoWindow8.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="bingoWindow9.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="bingoWindow6.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="bingoWindow5 .xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="bingoWindow4.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -67,8 +91,26 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="bingoWindow.xaml.cs">
-      <DependentUpon>bingoWindow.xaml</DependentUpon>
+    <Compile Include="bingoWindow3.xaml.cs">
+      <DependentUpon>bingoWindow3.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="bingoWindow7.xaml.cs">
+      <DependentUpon>bingoWindow7.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="bingoWindow8.xaml.cs">
+      <DependentUpon>bingoWindow8.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="bingoWindow9.xaml.cs">
+      <DependentUpon>bingoWindow9.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="bingoWindow6.xaml.cs">
+      <DependentUpon>bingoWindow6.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="bingoWindow5 .xaml.cs">
+      <DependentUpon>bingoWindow5 .xaml</DependentUpon>
+    </Compile>
+    <Compile Include="bingoWindow4.xaml.cs">
+      <DependentUpon>bingoWindow4.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
