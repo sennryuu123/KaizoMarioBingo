@@ -103,6 +103,7 @@ namespace BINGOgame
 
         public async void bingoCtrlFromPj64()
         {
+        LABEL1:
             /* PJ64の起動を待つ */
             while (true)
             {
@@ -148,6 +149,18 @@ namespace BINGOgame
                 if (!timer.IsRunning)
                 {
                     continue;
+                }
+
+                if (mm.ProcessActive())
+                {
+                    /* 終了したらスレッドの先頭に戻る */
+                    goto LABEL1;
+                }
+
+                if (!mm.isReadyToRead())
+                {
+                    /* 終了したらスレッドの先頭に戻る */
+                    goto LABEL1;
                 }
 
                 /* スター更新 */
