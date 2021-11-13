@@ -52,21 +52,8 @@
                 <CheckBox Name="all_chk_coins" Margin="10,10,0,0" Checked="all_chk_coins_checked" Unchecked="all_chk_coins_unchecked" IsChecked="True"/>
                 <TextBlock HorizontalAlignment="Left" Height="20" Margin="0,10,0,0" TextWrapping="Wrap" Text="100 Coins" Width="70"/>
             </StackPanel>
-          
-            <ListBox Name="listbox_coins" ItemsSource="{Binding}" Height="600" SelectionMode="Multiple" Margin="10,0,10,0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <CheckBox IsChecked="{Binding Path=chk}" Content="{Binding Path=name}" />
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
 
-            <StackPanel Orientation=" Horizontal">
-                <CheckBox Name="all_chk_key" Margin="10,10,0,0" Checked="all_chk_key_checked" Unchecked="all_chk_key_unchecked" IsChecked="True"/>
-                <TextBlock HorizontalAlignment="Left" Height="20" Margin="0,10,0,0" TextWrapping="Wrap" Text="Key" Width="70"/>
-            </StackPanel>
-           
-            <ListBox Name="listbox_key" ItemsSource="{Binding}" Height="90" SelectionMode="Multiple" Margin="10,0,10,0">
+            <ListBox Name="listbox_coins" ItemsSource="{Binding}" Height="720" SelectionMode="Multiple" Margin="10,0,10,0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <CheckBox IsChecked="{Binding Path=chk}" Content="{Binding Path=name}" />

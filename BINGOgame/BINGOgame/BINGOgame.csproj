@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -33,6 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -118,6 +120,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="managers\CacheManager.cs" />
+    <Compile Include="managers\MagicManager.cs" />
+    <Compile Include="managers\Manager.cs" />
+    <Compile Include="managers\MemoryManager.cs" />
+    <Compile Include="process\DeepPointer.cs" />
+    <Compile Include="process\ProcessExtensions.cs" />
+    <Compile Include="process\WinAPI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -142,6 +151,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MIPSInterpreter\MIPSInterpreter.csproj">
+      <Project>{144ee1b2-effb-4014-ad15-4dc8bae367a0}</Project>
+      <Name>MIPSInterpreter</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

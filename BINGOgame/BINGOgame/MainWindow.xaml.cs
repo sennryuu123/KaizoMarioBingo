@@ -28,18 +28,17 @@ namespace BINGOgame
         string[] normal_star_list = new string[256]; /* ノーマルスター  */
         string[] reds_star_list = new string[256]; /* 赤コインスター  */
         string[] coins_star_list = new string[256]; /* 100コインスター */
-        string[] key_list = new string[256]; /* クッパキー      */
         string[] selected_star_list = new string[256 * 4];
         string[] bingo_card_list = new string[256 * 4];
         int normal_star_num;
         int reds_star_num;
         int coins_star_num;
-        int key_num;
         int selected_star_num;
-        ObservableCollection<StarInfo> normalStarInfo = new ObservableCollection<StarInfo>();
-        ObservableCollection<StarInfo> redsStarInfo   = new ObservableCollection<StarInfo>();
-        ObservableCollection<StarInfo> coinsStarInfo  = new ObservableCollection<StarInfo>();
-        ObservableCollection<StarInfo> keyInfo        = new ObservableCollection<StarInfo>();
+        ObservableCollection<STAR_NAME_INFO> normalStarNameInfo = new ObservableCollection<STAR_NAME_INFO>();
+        ObservableCollection<STAR_NAME_INFO> redsStarNameInfo   = new ObservableCollection<STAR_NAME_INFO>();
+        ObservableCollection<STAR_NAME_INFO> coinsStarNameInfo  = new ObservableCollection<STAR_NAME_INFO>();
+        List<STAR_INFO> starList = new List<STAR_INFO>();
+        List<STAR_INFO> bingoCardList = new List<STAR_INFO>();
 
         public enum result_t
         {
@@ -47,8 +46,22 @@ namespace BINGOgame
             NG
         };
 
-        public MainWindow()
+        public class STAR_INFO
         {
+            public int offset;
+            public string course;
+            public int num;
+            public string name;
+        }
+
+        public class STAR_NAME_INFO
+        {
+            public bool chk { get; set; }
+            public string name { get; set; }
+        }
+
+        public MainWindow()
+        {    
             /* テキストファイルからデータを読み出す */
             if (result_t.NG == textRead())
             {
@@ -76,105 +89,195 @@ namespace BINGOgame
                 bool flag_normal = false;
                 bool flag_reds = false;
                 bool flag_coins = false;
-                bool flag_key = false;
-                string temp;
+                string oneLine;
+                string[] temp;
                 int i = 0;
 
                 while (!sr.EndOfStream)
                 {
-                    temp = sr.ReadLine();
-                    if (temp == "ハック名:")
-                    {
-                        hack_name = sr.ReadLine();
-                        flag_hack = true;
-                    }
+                    oneLine = sr.ReadLine();
 
-                    if (temp == "ノーマルスター:")
+                    /* block確認 */
+
+                    /* ハック名取得 */
+                    if (oneLine.Equals("1:"))
+                    {
+                        while (!sr.EndOfStream)
+                        {
+                            oneLine = sr.ReadLine();
+
+                            if (oneLine.Equals("end:"))
+                            {
+                                /* 終了 */
+                                flag_hack = true;
+                                break;
+                            }
+
+                            temp = oneLine.Split(';');
+                            hack_name = temp[0];
+                        }
+                    }
+                    /* ノーマルスター取得 */
+                    else if (oneLine.Equals("2:"))
                     {
                         i = 0;
                         while (!sr.EndOfStream)
                         {
-                            temp = sr.ReadLine();
-                            if (temp == ";")
+                            oneLine = sr.ReadLine();
+
+                            if (oneLine.Equals("end:"))
                             {
+                                /* 終了 */
+                                normal_star_num = i;
                                 flag_normal = true;
                                 break;
                             }
-                            normal_star_list[i] = temp;
-                            i++;
-                        }
-                        normal_star_num = i;
-                    }
 
-                    if (temp == "赤:")
+                            STAR_INFO star_info = new STAR_INFO();
+
+                            temp = oneLine.Split(';');
+
+                            /* ;が足りていなかったらエラー */
+                            if (temp.Contains(null))
+                            {
+                                return (result_t.NG);
+                            }
+
+                            /* オフセット取得 */
+                            if (!int.TryParse(temp[0], out star_info.offset))
+                            {
+                                return (result_t.NG);
+                            }
+
+                            /* コース名取得 */
+                            star_info.course = temp[1];
+
+                            /* スター番号取得 */
+                            if (!int.TryParse(temp[2], out star_info.num))
+                            {
+                                return (result_t.NG);
+                            }
+
+                            /* スター名取得 */
+                            star_info.name = temp[3];
+
+                            starList.Add(star_info);
+
+                            /* 設定画面に表示する名称を追加 */
+                            normal_star_list[i++] = temp[1] + " Star " + temp[2] + " " + temp[3];
+                        }
+                    }
+                    /* 赤コインスター取得 */
+                    else if (oneLine.Equals("3:"))
                     {
                         i = 0;
                         while (!sr.EndOfStream)
                         {
-                            temp = sr.ReadLine();
-                            if (temp == ";")
+                            oneLine = sr.ReadLine();
+
+                            if (oneLine.Equals("end:"))
                             {
+                                /* 終了 */
+                                reds_star_num = i;
                                 flag_reds = true;
                                 break;
                             }
 
-                            reds_star_list[i] = temp;
-                            i++;
-                        }
-                        reds_star_num = i;
-                    }
+                            STAR_INFO star_info = new STAR_INFO();
 
-                    if (temp == "100:")
+                            temp = oneLine.Split(';');
+
+                            /* ;が足りていなかったらエラー */
+                            if (temp.Contains(null))
+                            {
+                                return (result_t.NG);
+                            }
+
+                            /* オフセット取得 */
+                            if (!int.TryParse(temp[0], out star_info.offset))
+                            {
+                                return (result_t.NG);
+                            }
+
+                            /* コース名取得 */
+                            star_info.course = temp[1];
+
+                            /* スター番号取得 */
+                            if (!int.TryParse(temp[2], out star_info.num))
+                            {
+                                return (result_t.NG);
+                            }
+
+                            /* スター名取得 */
+                            star_info.name = temp[3];
+
+                            starList.Add(star_info);
+
+                            /* 設定画面に表示する名称を追加 */
+                            reds_star_list[i++] = temp[1] + " Star " + temp[2] + " " + temp[3];
+                        }
+                    }
+                    /* 100コインスター取得 */
+                    else if (oneLine.Equals("4:"))
                     {
                         i = 0;
                         while (!sr.EndOfStream)
                         {
-                            temp = sr.ReadLine();
-                            if (temp == ";")
+                            oneLine = sr.ReadLine();
+
+                            if (oneLine.Equals("end:"))
                             {
+                                /* 終了 */
+                                coins_star_num = i;
                                 flag_coins = true;
                                 break;
                             }
 
-                            coins_star_list[i] = temp;
-                            i++;
-                        }
-                        coins_star_num = i;
-                    }
+                            STAR_INFO star_info = new STAR_INFO();
 
-                    if (temp == "Key:")
-                    {
-                        i = 0;
-                        while (!sr.EndOfStream)
-                        {
-                            temp = sr.ReadLine();
-                            if (temp == ";")
+                            temp = oneLine.Split(';');
+
+                            /* ;が足りていなかったらエラー */
+                            if (temp.Contains(null))
                             {
-                                flag_key = true;
-                                break;
+                                return (result_t.NG);
                             }
 
-                            key_list[i] = temp;
-                            i++;
+                            /* オフセット取得 */
+                            if (!int.TryParse(temp[0], out star_info.offset))
+                            {
+                                return (result_t.NG);
+                            }
+
+                            /* コース名取得 */
+                            star_info.course = temp[1];
+
+                            /* スター番号取得 */
+                            if (!int.TryParse(temp[2], out star_info.num))
+                            {
+                                return (result_t.NG);
+                            }
+
+                            /* スター名取得 */
+                            star_info.name = temp[3];
+
+                            starList.Add(star_info);
+
+                            /* 設定画面に表示する名称を追加 */
+                            coins_star_list[i++] = temp[1] + " Star " + temp[2] + " " + temp[3];
                         }
-                        key_num = i;
+                    }
+                    else
+                    {
+                        return (result_t.NG);
                     }
                 }
 
                 if ((flag_hack == true) &&
                     (flag_normal == true) &&
                     (flag_reds == true) &&
-                    (flag_coins == true) &&
-                    (flag_key == true))
+                    (flag_coins == true))
                 {
-#if false
-                    MessageBox.Show("Success!!");
-                    MessageBox.Show(hack_name, "ハック名");
-                    MessageBox.Show(normal_star_list[0], "ノーマルスター");
-                    MessageBox.Show(reds_star_list[0], "赤");
-                    MessageBox.Show(coins_star_list[0], "100");
-                    MessageBox.Show(key_list[0], "キー");
-#endif
                     return (result_t.OK);
                 }
                 else
@@ -209,129 +312,95 @@ namespace BINGOgame
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            listbox_normal.ItemsSource = normalStarInfo;
-            listbox_reds.ItemsSource   = redsStarInfo;
-            listbox_coins.ItemsSource  = coinsStarInfo;
-            listbox_key.ItemsSource    = keyInfo;
-        }
-
-        public class StarInfo
-        {
-            public bool chk { get; set; }
-            public string name { get; set; }
+            listbox_normal.ItemsSource = normalStarNameInfo;
+            listbox_reds.ItemsSource   = redsStarNameInfo;
+            listbox_coins.ItemsSource  = coinsStarNameInfo;
         }
 
         private void all_chk_normal_checked(object sender, RoutedEventArgs e)
         {
-            normalStarInfo.Clear();
+            normalStarNameInfo.Clear();
 
             int i;
             for (i = 0; i < normal_star_num; i++)
             {
-                StarInfo test = new StarInfo();
-                test.chk = true;
-                test.name = normal_star_list[i].Replace("@", " ");
-                normalStarInfo.Add(test);
+                STAR_NAME_INFO temp = new STAR_NAME_INFO();
+                temp.chk = true;
+                temp.name = normal_star_list[i];
+                normalStarNameInfo.Add(temp);
             }
         }
 
         private void all_chk_normal_unchecked(object sender, RoutedEventArgs e)
         {
-            normalStarInfo.Clear();
+            normalStarNameInfo.Clear();
 
             int i;
             for (i = 0; i < normal_star_num; i++)
             {
-                StarInfo test = new StarInfo();
-                test.chk = false;
-                test.name = normal_star_list[i].Replace("@", " ");
-                normalStarInfo.Add(test);
+                STAR_NAME_INFO temp = new STAR_NAME_INFO();
+                temp.chk = false;
+                temp.name = normal_star_list[i];
+                normalStarNameInfo.Add(temp);
             }
         }
 
         private void all_chk_reds_checked(object sender, RoutedEventArgs e)
         {
-            redsStarInfo.Clear();
+            redsStarNameInfo.Clear();
 
             int i;
             for (i = 0; i < reds_star_num; i++)
             {
-                StarInfo test = new StarInfo();
-                test.chk = true;
-                test.name = reds_star_list[i].Replace("@", " ");
-                redsStarInfo.Add(test);
+                STAR_NAME_INFO temp = new STAR_NAME_INFO();
+                temp.chk = true;
+                temp.name = reds_star_list[i];
+                redsStarNameInfo.Add(temp);
             }
         }
 
         private void all_chk_reds_unchecked(object sender, RoutedEventArgs e)
         {
-            redsStarInfo.Clear();
+            redsStarNameInfo.Clear();
 
             int i;
             for (i = 0; i < reds_star_num; i++)
             {
-                StarInfo test = new StarInfo();
-                test.chk = false;
-                test.name = reds_star_list[i].Replace("@", " ");
-                redsStarInfo.Add(test);
+                STAR_NAME_INFO temp = new STAR_NAME_INFO();
+                temp.chk = false;
+                temp.name = reds_star_list[i];
+                redsStarNameInfo.Add(temp);
             }
         }
 
         private void all_chk_coins_checked(object sender, RoutedEventArgs e)
         {
-            coinsStarInfo.Clear();
+            coinsStarNameInfo.Clear();
 
             int i;
             for (i = 0; i < coins_star_num; i++)
             {
-                StarInfo test = new StarInfo();
-                test.chk = true;
-                test.name = coins_star_list[i].Replace("@", " ");
-                coinsStarInfo.Add(test);
+                STAR_NAME_INFO temp = new STAR_NAME_INFO();
+                temp.chk = true;
+                temp.name = coins_star_list[i];
+                coinsStarNameInfo.Add(temp);
             }
         }
 
         private void all_chk_coins_unchecked(object sender, RoutedEventArgs e)
         {
-            coinsStarInfo.Clear();
+            coinsStarNameInfo.Clear();
 
             int i;
             for (i = 0; i < coins_star_num; i++)
             {
-                StarInfo test = new StarInfo();
-                test.chk = false;
-                test.name = coins_star_list[i].Replace("@", " ");
-                coinsStarInfo.Add(test);
+                STAR_NAME_INFO temp = new STAR_NAME_INFO();
+                temp.chk = false;
+                temp.name = coins_star_list[i];
+                coinsStarNameInfo.Add(temp);
             }
         }
 
-        private void all_chk_key_checked(object sender, RoutedEventArgs e)
-        {
-            keyInfo.Clear();
-
-            int i;
-            for (i = 0; i < key_num; i++)
-            {
-                StarInfo test = new StarInfo();
-                test.chk = true;
-                test.name = key_list[i].Replace("@", " ");
-                keyInfo.Add(test);
-            }
-        }
-
-        private void all_chk_key_unchecked(object sender, RoutedEventArgs e)
-        {
-            keyInfo.Clear();
-
-            int i;
-            for (i = 0; i < key_num; i++)
-            {
-                StarInfo test = new StarInfo();
-                test.chk = false;
-                test.name = key_list[i].Replace("@", " ");
-                keyInfo.Add(test);
-            }
-        }
 
         private void OK_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -343,7 +412,7 @@ namespace BINGOgame
 
             /* 配置するスターリスト取得 */
             i = 0;
-            foreach (var starInfo in normalStarInfo)
+            foreach (var starInfo in normalStarNameInfo)
             {
                 if (starInfo.chk)
                 {
@@ -353,7 +422,7 @@ namespace BINGOgame
             }
 
             i = 0;
-            foreach (var starInfo in redsStarInfo)
+            foreach (var starInfo in redsStarNameInfo)
             {
                 if (starInfo.chk)
                 {
@@ -363,21 +432,11 @@ namespace BINGOgame
             }
 
             i = 0;
-            foreach (var starInfo in coinsStarInfo)
+            foreach (var starInfo in coinsStarNameInfo)
             {
                 if (starInfo.chk)
                 {
                     selected_star_list[selected_index++] = coins_star_list[i];
-                }
-                i++;
-            }
-
-            i = 0;
-            foreach (var starInfo in keyInfo)
-            {
-                if (starInfo.chk)
-                {
-                    selected_star_list[selected_index++] = key_list[i];
                 }
                 i++;
             }
@@ -437,8 +496,8 @@ namespace BINGOgame
                 }
 
                 bingo_card_list_index[cnt] = temp_index;               /* 同値判定用配列に格納 */
-                bingo_card_list[cnt] = selected_star_list[temp_index]; /* ビンゴカードに使用するスター名を格納 */
 
+                bingoCardList.Add(starList[temp_index]);
                 System.Diagnostics.Debug.WriteLine(bingo_card_list[cnt]);
 
                 cnt++;
@@ -447,37 +506,37 @@ namespace BINGOgame
             switch (bingo_size) 
             {
                 case 3:
-                    var bingo_card3 = new bingoWindow3(hack_name, seed, bingo_size, bingo_card_list);
+                    var bingo_card3 = new bingoWindow3(hack_name, seed, bingo_size, bingoCardList);
                     bingo_card3.Show();
                     break;
 
                 case 4:
-                    var bingo_card4 = new bingoWindow4(hack_name, seed, bingo_size, bingo_card_list);
+                    var bingo_card4 = new bingoWindow4(hack_name, seed, bingo_size, bingoCardList);
                     bingo_card4.Show();
                     break;
 
                 case 5:
-                    var bingo_card5 = new bingoWindow5(hack_name, seed, bingo_size, bingo_card_list);
+                    var bingo_card5 = new bingoWindow5(hack_name, seed, bingo_size, bingoCardList);
                     bingo_card5.Show();
                     break;
 
                 case 6:
-                    var bingo_card6 = new bingoWindow6(hack_name, seed, bingo_size, bingo_card_list);
+                    var bingo_card6 = new bingoWindow6(hack_name, seed, bingo_size, bingoCardList);
                     bingo_card6.Show();
                     break;
 
                 case 7:
-                    var bingo_card7 = new bingoWindow7(hack_name, seed, bingo_size, bingo_card_list);
+                    var bingo_card7 = new bingoWindow7(hack_name, seed, bingo_size, bingoCardList);
                     bingo_card7.Show();
                     break;
 
                 case 8:
-                    var bingo_card8 = new bingoWindow8(hack_name, seed, bingo_size, bingo_card_list);
+                    var bingo_card8 = new bingoWindow8(hack_name, seed, bingo_size, bingoCardList);
                     bingo_card8.Show();
                     break;
 
                 case 9:
-                    var bingo_card9 = new bingoWindow9(hack_name, seed, bingo_size, bingo_card_list);
+                    var bingo_card9 = new bingoWindow9(hack_name, seed, bingo_size, bingoCardList);
                     bingo_card9.Show();
                     break;
 
@@ -492,55 +551,7 @@ namespace BINGOgame
 
         private void Reload_Button_Click(object sender, RoutedEventArgs e)
         {
-            /* テキストファイルからデータを読み出す */
-            if (result_t.NG == textRead())
-            {
-                Application.Current.Shutdown();
-            }
-
-            all_chk_normal.IsChecked = true;
-            all_chk_reds.IsChecked = true;
-            all_chk_coins.IsChecked = true;
-            all_chk_key.IsChecked = true;
-
-            normalStarInfo.Clear();
-            redsStarInfo.Clear();
-            coinsStarInfo.Clear();
-            keyInfo.Clear();
-
-            int i;
-            for (i = 0; i < normal_star_num; i++)
-            {
-                StarInfo test = new StarInfo();
-                test.chk = true;
-                test.name = normal_star_list[i].Replace("@", " ");
-                normalStarInfo.Add(test);
-            }
-
-            for (i = 0; i < reds_star_num; i++)
-            {
-                StarInfo test = new StarInfo();
-                test.chk = true;
-                test.name = reds_star_list[i].Replace("@", " ");
-                redsStarInfo.Add(test);
-            }
-
-            for (i = 0; i < coins_star_num; i++)
-            {
-                StarInfo test = new StarInfo();
-                test.chk = true;
-                test.name = coins_star_list[i].Replace("@", " ");
-                coinsStarInfo.Add(test);
-            }
-
-
-            for (i = 0; i < key_num; i++)
-            {
-                StarInfo test = new StarInfo();
-                test.chk = true;
-                test.name = key_list[i].Replace("@", " ");
-                keyInfo.Add(test);
-            }
+            /* TBD */
         }
     }
 

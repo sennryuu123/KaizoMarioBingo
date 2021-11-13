@@ -47,7 +47,6 @@ C:\Users\akuro\Desktop\bingo\KaizoMarioBingo-add_ver_beta\KaizoMarioBingo-add_ve
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Release\BINGOgame.exe.config
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Release\BINGOgame.exe
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Release\BINGOgame.pdb
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOgame.csproj.AssemblyReference.cache
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow3.g.cs
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow7.g.cs
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow8.g.cs
@@ -73,3 +72,4 @@ C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOg
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOgame.csproj.CoreCompileInputs.cache
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOgame.exe
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOgame.pdb
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOgame.csproj.AssemblyReference.cache

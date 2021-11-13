@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 
 using System.ComponentModel;
 using System.Windows.Threading;
+using System.Diagnostics;
+using System.Threading;
 
 namespace BINGOgame
 {
@@ -25,17 +27,32 @@ namespace BINGOgame
         string Hack_name;
         int Seed;
         int Bingo_size;
-        string[] Bingo_card_list = new string[256];
+        List<BINGOgame.MainWindow.STAR_INFO> Bingo_card_list = new List<BINGOgame.MainWindow.STAR_INFO>();
+        MemoryManager mm;
+        Thread magicThread;
+        bool[] starGetFlag;
+        public List<TextBlock> BingoTextList = new List<TextBlock>();
+        static string[] processNames = {
+            "project64", "project64d",
+            "mupen64-rerecording",
+            "mupen64-pucrash",
+            "mupen64_lua",
+            "mupen64-wiivc",
+            "mupen64-RTZ",
+            "mupen64-rerecording-v2-reset",
+            "mupen64-rrv8-avisplit",
+            "mupen64-rerecording-v2-reset",
+            // "retroarch" 
+        };
 
         /* タイマースタート */
         System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 
-        public bingoWindow4(string hack_name, int seed, int bingo_size, string[] bingo_card_list)
+        public bingoWindow4(string hack_name, int seed, int bingo_size, List<BINGOgame.MainWindow.STAR_INFO> bingo_card_list)
         {
             InitializeComponent();
 
             TextBlock_Seed.Text = seed.ToString();
-
             this.Title = hack_name + " BINGO";
 
             Hack_name = hack_name;
@@ -46,32 +63,146 @@ namespace BINGOgame
             System.Diagnostics.Debug.WriteLine("\n\n\nBINGO CARD");
             System.Diagnostics.Debug.WriteLine(seed.ToString());
             System.Diagnostics.Debug.WriteLine(bingo_size.ToString());
-            System.Diagnostics.Debug.WriteLine(bingo_card_list[0]);
-            System.Diagnostics.Debug.WriteLine(bingo_card_list[bingo_size * bingo_size-1]);
+            System.Diagnostics.Debug.WriteLine(bingo_card_list[0].name);
+            System.Diagnostics.Debug.WriteLine(bingo_card_list[bingo_size * bingo_size - 1].name);
+
+            BingoTextList.Add(TextBlock_0_0);
+            BingoTextList.Add(TextBlock_0_1);
+            BingoTextList.Add(TextBlock_0_2);
+            BingoTextList.Add(TextBlock_0_3);
+
+            BingoTextList.Add(TextBlock_1_0);
+            BingoTextList.Add(TextBlock_1_1);
+            BingoTextList.Add(TextBlock_1_2);
+            BingoTextList.Add(TextBlock_1_3);
+
+            BingoTextList.Add(TextBlock_2_0);
+            BingoTextList.Add(TextBlock_2_1);
+            BingoTextList.Add(TextBlock_2_2);
+            BingoTextList.Add(TextBlock_2_3);
+
+            BingoTextList.Add(TextBlock_3_0);
+            BingoTextList.Add(TextBlock_3_1);
+            BingoTextList.Add(TextBlock_3_2);
+            BingoTextList.Add(TextBlock_3_3);
+
+            Thread thread = new Thread(new ThreadStart(bingoCtrlFromPj64));
+            thread.Start();
+
+            starGetFlag = new bool[bingo_size * bingo_size];
+
+            for (int i = 0; i < starGetFlag.Length; i++)
+            {
+                starGetFlag[i] = false;
+            }
+        }
+
+        private Process FindEmulatorProcess()
+        {
+            foreach (string name in processNames)
+            {
+                Process process = Process.GetProcessesByName(name).Where(p => !p.HasExited).FirstOrDefault();
+                if (process != null)
+                    return process;
+            }
+
+            return null;
+        }
+
+        public async void bingoCtrlFromPj64()
+        {
+            /* PJ64の起動を待つ */
+            while (true)
+            {
+                Process process = FindEmulatorProcess();
+                mm = new MemoryManager(process);
+
+                if (!mm.ProcessActive())
+                {
+                    /* 起動したら抜ける */
+                    break;
+                }
+
+                await Task.Delay(1000);
+            }
+
+            /* ハックをロードする */
+            while (true)
+            {
+                if (mm.GetTitle().Contains("-"))
+                {
+                    /* ロードしたら抜ける */
+                    break;
+                }
+
+                await Task.Delay(1000);
+            }
+
+            magicThread = new Thread(doMagicThread);
+            magicThread.Start();
+
+            while (true)
+            {
+                if (mm.isReadyToRead())
+                    break;
+
+                await Task.Delay(1000);
+            }
+
+            /* スター取得監視＆点灯処理開始 */
+            byte[] stars = new byte[0x70];
+            while (true)
+            {
+                if (!timer.IsRunning)
+                {
+                    continue;
+                }
+
+                /* スター更新 */
+                mm.PerformRead();
+                stars = mm.GetStars();
+
+                int i;
+                int offset;
+                byte bit;
+                for (i = 0; i < Bingo_card_list.Count; i++)
+                {
+                    offset = Bingo_card_list[i].offset;
+                    bit = (byte)(1 << (Bingo_card_list[i].num - 1));
+
+                    if ((stars[offset] & bit) == bit)
+                    {
+                        starGetFlag[i] = true;
+                    }
+                    else
+                    {
+                        starGetFlag[i] = false;
+                    }
+                }
+                await Task.Delay(1000);
+            }
+        }
+
+        private void doMagicThread()
+        {
+            bool isActive = !mm.ProcessActive();
+            while (mm != null && isActive && !mm.isMagicDone())
+            {
+                try
+                {
+                    mm.doMagic();
+                }
+                catch (Exception) { }
+            }
         }
 
         private void Start_Button_Click(object sender, RoutedEventArgs e)
         {
-            TextBlock_0_0.Text = Bingo_card_list[0].Replace("@", "\n");
-            TextBlock_0_1.Text = Bingo_card_list[1].Replace("@", "\n");
-            TextBlock_0_2.Text = Bingo_card_list[2].Replace("@", "\n");
-            TextBlock_0_3.Text = Bingo_card_list[3].Replace("@", "\n");
-            
-            TextBlock_1_0.Text = Bingo_card_list[4].Replace("@", "\n");
-            TextBlock_1_1.Text = Bingo_card_list[5].Replace("@", "\n");
-            TextBlock_1_2.Text = Bingo_card_list[6].Replace("@", "\n");
-            TextBlock_1_3.Text = Bingo_card_list[7].Replace("@", "\n");
-            
-            TextBlock_2_0.Text = Bingo_card_list[8].Replace("@", "\n");
-            TextBlock_2_1.Text = Bingo_card_list[9].Replace("@", "\n");
-            TextBlock_2_2.Text = Bingo_card_list[10].Replace("@", "\n");
-            TextBlock_2_3.Text = Bingo_card_list[11].Replace("@", "\n");
-            
-            TextBlock_3_0.Text = Bingo_card_list[12].Replace("@", "\n");
-            TextBlock_3_1.Text = Bingo_card_list[13].Replace("@", "\n");
-            TextBlock_3_2.Text = Bingo_card_list[14].Replace("@", "\n");
-            TextBlock_3_3.Text = Bingo_card_list[15].Replace("@", "\n");
-            
+            for (int i = 0; i < BingoTextList.Count; i++)
+            {
+                BingoTextList[i].Text = Bingo_card_list[i].course + " Star" + Bingo_card_list[i].num + "\n" + Bingo_card_list[i].name;
+            }
+
             timer.Start(); /* 時刻表示用タイマー */
             SetupTimer();  /* 定期処理用タイマー */
             TextBlock_Timer.Text = timer.Elapsed.ToString(@"hh\:mm\:ss");
@@ -93,6 +224,21 @@ namespace BINGOgame
         private void MyTimerMethod(object sender, EventArgs e)
         {
             TextBlock_Timer.Text = timer.Elapsed.ToString(@"hh\:mm\:ss");
+
+            var off_color = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0xff));
+            var on_color = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0x33));
+
+            for (int i = 0; i < BingoTextList.Count; i++)
+            {
+                if (starGetFlag[i])
+                {
+                    BingoTextList[i].Background = on_color;
+                }
+                else
+                {
+                    BingoTextList[i].Background = off_color;
+                }
+            }
         }
 
         // タイマのインスタンス
@@ -115,9 +261,9 @@ namespace BINGOgame
         {
             TextBlock temp;
             var off_color = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0xff));
-            var on_color  = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0x33));
+            var on_color = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0x33));
 
-            if (!timer.IsRunning) 
+            if (!timer.IsRunning)
             {
                 return;
             }
@@ -128,7 +274,7 @@ namespace BINGOgame
             {
                 temp.Background = on_color;
             }
-            else 
+            else
             {
                 temp.Background = off_color;
             }
