@@ -4,3 +4,4 @@ C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\MIPSInterpreter\bin\Debug\MI
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\MIPSInterpreter\bin\Debug\MIPSInterpreter.pdb
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\MIPSInterpreter\obj\Debug\MIPSInterpreter.exe
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\MIPSInterpreter\obj\Debug\MIPSInterpreter.pdb
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\MIPSInterpreter\obj\Debug\MIPSInterpreter.csproj.AssemblyReference.cache

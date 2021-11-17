@@ -38,6 +38,7 @@ namespace BINGOgame
         ObservableCollection<STAR_NAME_INFO> redsStarNameInfo   = new ObservableCollection<STAR_NAME_INFO>();
         ObservableCollection<STAR_NAME_INFO> coinsStarNameInfo  = new ObservableCollection<STAR_NAME_INFO>();
         List<STAR_INFO> starList = new List<STAR_INFO>();
+        List<STAR_INFO> selectedStarList = new List<STAR_INFO>();
         List<STAR_INFO> bingoCardList = new List<STAR_INFO>();
 
         public enum result_t
@@ -404,7 +405,6 @@ namespace BINGOgame
 
         private void OK_Button_Click(object sender, RoutedEventArgs e)
         {
-            int selected_index = 0;
             int bingo_size;
             int upper_star_num;
             int seed;
@@ -416,32 +416,30 @@ namespace BINGOgame
             {
                 if (starInfo.chk)
                 {
-                    selected_star_list[selected_index++] = normal_star_list[i];
+                    selectedStarList.Add(starList[i]);
                 }
                 i++;
             }
 
-            i = 0;
             foreach (var starInfo in redsStarNameInfo)
             {
                 if (starInfo.chk)
                 {
-                    selected_star_list[selected_index++] = reds_star_list[i];
+                    selectedStarList.Add(starList[i]);
                 }
                 i++;
             }
 
-            i = 0;
             foreach (var starInfo in coinsStarNameInfo)
             {
                 if (starInfo.chk)
                 {
-                    selected_star_list[selected_index++] = coins_star_list[i];
+                    selectedStarList.Add(starList[i]);
                 }
                 i++;
             }
 
-            selected_star_num = selected_index;
+            selected_star_num = selectedStarList.Count;
             bingo_size = (int)ComboBox_BingoSize.SelectedItem;
             upper_star_num = bingo_size * bingo_size;
 
@@ -497,7 +495,7 @@ namespace BINGOgame
 
                 bingo_card_list_index[cnt] = temp_index;               /* 同値判定用配列に格納 */
 
-                bingoCardList.Add(starList[temp_index]);
+                bingoCardList.Add(selectedStarList[temp_index]);
                 System.Diagnostics.Debug.WriteLine(bingo_card_list[cnt]);
 
                 cnt++;

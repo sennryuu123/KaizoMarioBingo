@@ -76,4 +76,3 @@ C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOg
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Release\MIPSInterpreter.exe
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Release\MIPSInterpreter.pdb
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Release\MIPSInterpreter.exe.config
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOgame.csproj.CopyComplete
