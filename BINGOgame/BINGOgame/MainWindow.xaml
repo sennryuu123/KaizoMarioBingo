@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BINGOgame"
         mc:Ignorable="d"
-        Title="改造マリオビンゴ ルール設定" Height="800" Width="1200" Loaded="Window_Loaded" ResizeMode="NoResize">
+        Title="改造マリオビンゴ ルール設定" Height="600" Width="1000" Loaded="Window_Loaded" ResizeMode="NoResize">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -23,7 +23,7 @@
                 <CheckBox Name="all_chk_normal" Margin="10,10,0,0" Checked="all_chk_normal_checked" Unchecked="all_chk_normal_unchecked" IsChecked="True"/>
                 <TextBlock HorizontalAlignment="Left" Height="20" Margin="0,10,0,0" TextWrapping="Wrap" Text="ノーマルスター" Width="70"/>
             </StackPanel>
-            <ListBox Name="listbox_normal" ItemsSource="{Binding}" Height="720" SelectionMode="Multiple" Margin="10,0,10,0" >
+            <ListBox Name="listbox_normal" ItemsSource="{Binding}" Height="520" SelectionMode="Multiple" Margin="10,0,10,0" >
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <CheckBox IsChecked="{Binding Path=chk}" Content="{Binding Path=name}" />
@@ -38,7 +38,7 @@
                 <TextBlock HorizontalAlignment="Left" Height="20" Margin="0,10,0,0" TextWrapping="Wrap" Text="Reds" Width="70"/>
             </StackPanel>
           
-            <ListBox Name="listbox_reds" ItemsSource="{Binding}" Height="720" SelectionMode="Multiple" Margin="10,0,10,0">
+            <ListBox Name="listbox_reds" ItemsSource="{Binding}" Height="520" SelectionMode="Multiple" Margin="10,0,10,0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <CheckBox IsChecked="{Binding Path=chk}" Content="{Binding Path=name}" />
@@ -53,7 +53,7 @@
                 <TextBlock HorizontalAlignment="Left" Height="20" Margin="0,10,0,0" TextWrapping="Wrap" Text="100 Coins" Width="70"/>
             </StackPanel>
 
-            <ListBox Name="listbox_coins" ItemsSource="{Binding}" Height="720" SelectionMode="Multiple" Margin="10,0,10,0">
+            <ListBox Name="listbox_coins" ItemsSource="{Binding}" Height="520" SelectionMode="Multiple" Margin="10,0,10,0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <CheckBox IsChecked="{Binding Path=chk}" Content="{Binding Path=name}" />
