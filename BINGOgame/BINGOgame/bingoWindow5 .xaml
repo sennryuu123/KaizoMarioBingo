@@ -107,14 +107,17 @@
         <Grid Grid.Row="2" Grid.Column="1">
             <Viewbox>
                 <StackPanel Orientation=" Horizontal"  Width="1360">
-                    <TextBlock                         HorizontalAlignment="Left" TextAlignment="Left" FontSize="50" Height="100" Margin="0,0,0,0" TextWrapping="Wrap" Text="シード値：" Width="Auto"/>
+                    <Button HorizontalAlignment="Center" Margin="0,0,0,30" FontSize="50" Content="シード値" Height="70" Width="Auto" Click="Seed_Copy_Button_Click"/>
+                    <TextBlock                         HorizontalAlignment="Left" TextAlignment="Left" FontSize="50" Height="100" Margin="0,0,0,0" TextWrapping="Wrap" Text="：" Width="Auto"/>
                     <TextBlock x:Name="TextBlock_Seed" HorizontalAlignment="Left" TextAlignment="Left" FontSize="50" Height="100" Margin="0,0,0,0" TextWrapping="Wrap" Text=""           Width="Auto"/>
 
-                    <TextBlock HorizontalAlignment="Right" TextAlignment="Right" FontSize="50" Height="100" Margin="400,0,0,0" TextWrapping="Wrap" Text="Time：" Width="Auto"/>
-                    <TextBlock x:Name="TextBlock_Timer" HorizontalAlignment="Right" TextAlignment="Left"  FontSize="50" Height="100" Margin="0,0,0,0" TextWrapping="Wrap" Text=""       Width="Auto"/>
+                    <Button HorizontalAlignment="Right" Margin="400,0,0,30" FontSize="50" Content="Time" Height="70" Width="Auto" Click="Time_Copy_Button_Click"/>
+                    <TextBlock HorizontalAlignment="Right" TextAlignment="Right" FontSize="50" Height="100" Margin="0,0,0,0" TextWrapping="Wrap" Text="：" Width="Auto"/>
+                    <TextBlock x:Name="TextBlock_Timer" HorizontalAlignment="Right" TextAlignment="Left"  FontSize="50" Height="100" Margin="0,0,0,0" TextWrapping="Wrap" Text="00:00:00"       Width="Auto"/>
                 </StackPanel>
             </Viewbox>
         </Grid>
+
 
         <Grid Grid.Row="3" Grid.Column="1">
             <Viewbox>

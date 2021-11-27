@@ -318,9 +318,18 @@ namespace BINGOgame
             }
         }
 
+        private void Seed_Copy_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(TextBlock_Seed.Text);
+        }
+
+        private void Time_Copy_Button_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(TextBlock_Timer.Text);
+        }
+
         private void Back_Button_Click(object sender, RoutedEventArgs e)
         {
-
             if (MessageBox.Show("ルール設定画面に戻ります\n" +
                                 "よろしいですか？\n",
                                 "Warning",

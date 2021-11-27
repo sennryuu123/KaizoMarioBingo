@@ -83,7 +83,6 @@ namespace BINGOgame
             }
             else
             {
-                MessageBox.Show("config.txtの内容が不適です。");
                 Application.Current.Shutdown();
             }
 
