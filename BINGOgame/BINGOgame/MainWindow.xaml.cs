@@ -24,7 +24,7 @@ namespace BINGOgame
     /// </summary>
     public partial class MainWindow : Window
     {
-        /* スター名と、スター名称 */
+        double windowRate = 0.8; /* ビンゴカードウィンドウのサイズを決める値*/
         string hack_name;                           /* ハック名 */
         string[] normal_star_list = new string[256]; /* ノーマルスター  */
         string[] reds_star_list = new string[256]; /* 赤コインスター  */
@@ -459,6 +459,12 @@ namespace BINGOgame
             bingo_size = (int)ComboBox_BingoSize.SelectedItem;
             upper_star_num = bingo_size * bingo_size;
 
+            if ((bingo_size < 3) || (bingo_size > 9))  
+            {
+                MessageBox.Show("対応していないビンゴサイズです。");
+                return;
+            }
+
             /* シード値取得 */
             if (upper_star_num > selected_star_num)
             {
@@ -522,47 +528,10 @@ namespace BINGOgame
             starNameInfoList.Add(coinsStarNameInfo);
 
             seed -= bingo_size;
-            switch (bingo_size) 
-            {
-                case 3:
-                    var bingo_card3 = new bingoWindow3(hack_name, seed, bingo_size, bingoCardList);
-                    bingo_card3.Show();
-                    break;
-
-                case 4:
-                    var bingo_card4 = new bingoWindow4(hack_name, seed, bingo_size, bingoCardList);
-                    bingo_card4.Show();
-                    break;
-
-                case 5:
-                    var bingo_card5 = new bingoWindow5(hack_name, seed, bingo_size, bingoCardList);
-                    bingo_card5.Show();
-                    break;
-
-                case 6:
-                    var bingo_card6 = new bingoWindow6(hack_name, seed, bingo_size, bingoCardList);
-                    bingo_card6.Show();
-                    break;
-
-                case 7:
-                    var bingo_card7 = new bingoWindow7(hack_name, seed, bingo_size, bingoCardList);
-                    bingo_card7.Show();
-                    break;
-
-                case 8:
-                    var bingo_card8 = new bingoWindow8(hack_name, seed, bingo_size, bingoCardList);
-                    bingo_card8.Show();
-                    break;
-
-                case 9:
-                    var bingo_card9 = new bingoWindow9(hack_name, seed, bingo_size, bingoCardList);
-                    bingo_card9.Show();
-                    break;
-
-                default:
-                    MessageBox.Show("対応していないビンゴサイズです。");
-                    break;
-            }
+            var bingo_card = new bingoWindow(hack_name, seed, bingo_size, bingoCardList);
+            bingo_card.Height = 1050 * windowRate;
+            bingo_card.Width = 800 * windowRate;
+            bingo_card.Show();
 
             this.Close();
         }

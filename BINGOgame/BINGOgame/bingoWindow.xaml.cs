@@ -23,7 +23,7 @@ namespace BINGOgame
     /// <summary>
     /// configWindow.xaml の相互作用ロジック
     /// </summary>
-    public partial class bingoWindow5 : Window
+    public partial class bingoWindow : Window
     {
         string hackName;
         int seedNum;
@@ -33,6 +33,7 @@ namespace BINGOgame
         Thread magicThread = null;
         bool[] starGetFlag;
         public List<TextBlock> BingoTextList = new List<TextBlock>();
+        int maxCol = 0;
         static string[] processNames = {
             "project64", "project64d",
             "mupen64-rerecording",
@@ -81,8 +82,7 @@ namespace BINGOgame
             return list.ToArray();
         }
 
-
-        public bingoWindow5(
+        public bingoWindow(
             string hack_name,
             int seed_num,
             int bingo_size,
@@ -97,6 +97,15 @@ namespace BINGOgame
             seedNum = seed_num;
             bingoSize = bingo_size;
             bingoCardList = bingo_card_list;
+
+            /* ここでビンゴカード用Gridを作成する */
+            for (int row = 0; row < bingo_size; row++)
+            {
+                ColumnDefinition col_def = new ColumnDefinition();
+                RowDefinition row_def = new RowDefinition();
+                Grid_Bingo_Card.ColumnDefinitions.Add(col_def);
+                Grid_Bingo_Card.RowDefinitions.Add(row_def);
+            }
 
             /* ここでTextBlockを作成する */
             for (int row = 0; row < bingo_size; row++)
@@ -128,21 +137,35 @@ namespace BINGOgame
             /* TextBlockにスター名を入力する */
             string[] temp;
             string name;
+            int i, j;
 
-            for (int i = 0; i < BingoTextList.Count; i++)
+            for (i = 0; i < BingoTextList.Count; i++)
             {
                 BingoTextList[i].Text = bingoCardList[i].course + " Star" + bingoCardList[i].num + "\n" + bingoCardList[i].name;
                 temp = MySplit(bingoCardList[i].name, 10);
 
                 name = temp[0];
-                for (int j = 1; j < temp.Length; j++)
+                for (j = 1; j < temp.Length; j++)
                 {
                     name += "\n";
                     name += temp[j];
                 }
 
+                if (i == 0)
+                {
+                    maxCol = j;
+                }
+                else 
+                {
+                    if (maxCol < j) 
+                    {
+                        maxCol = j;
+                    }
+                }
+
                 BingoTextList[i].Text = bingoCardList[i].course + " Star" + bingoCardList[i].num + "\n" + name;
             }
+            maxCol++; /* コース名分 */
 
             /* ここでボーダーを引く */
             for (int row = 0; row < bingo_size; row++) 
@@ -163,7 +186,7 @@ namespace BINGOgame
 
             starGetFlag = new bool[bingo_size * bingo_size];
 
-            for (int i = 0; i < starGetFlag.Length; i++)
+            for (i = 0; i < starGetFlag.Length; i++)
             {
                 starGetFlag[i] = false;
             }
@@ -297,29 +320,18 @@ namespace BINGOgame
 
         private void Start_Button_Click(object sender, RoutedEventArgs e)
         {
-            double max_height = (800 * (5.0 / 7.0)) / 5.0;
-            double max_width = 150.0;
-            double min_font_size = 0;
+            double max_height;
+            double max_width;
+            double font_size = 0;
 
-            for (int i = 0; i < BingoTextList.Count; i++)
-            {
-                if (i == 0)
-                {
-                    min_font_size = BingoTextList[i].FontSize;
-                }
-                else
-                {
-                    if (min_font_size > BingoTextList[i].FontSize)
-                    {
-                        min_font_size = BingoTextList[i].FontSize;
-                    }
-                }
-            }
+            max_height = (Application.Current.MainWindow.Height / 1.5 * (5.0 / 7.0)) / bingoSize;
+            max_width = (Application.Current.MainWindow.Width   / 1.5 * (30.0 / 32.0)) / bingoSize;
+            font_size = max_height / (maxCol + 2);
 
             for (int i = 0; i < BingoTextList.Count; i++)
             {
                 BingoTextList[i].Foreground = Brushes.Black;
-                BingoTextList[i].FontSize = min_font_size;
+                BingoTextList[i].FontSize = font_size;
                 BingoTextList[i].Height = max_height;
                 BingoTextList[i].Width = max_width;
             }

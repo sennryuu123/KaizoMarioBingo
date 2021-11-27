@@ -1,10 +1,3 @@
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow3.g.cs
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow7.g.cs
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow8.g.cs
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow9.g.cs
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow6.g.cs
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow5 .g.cs
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow4.g.cs
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\MainWindow.g.cs
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\App.g.cs
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame_MarkupCompile.cache
@@ -16,13 +9,6 @@ C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\x64\Debug\MIPS
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\x64\Debug\MIPSInterpreter.pdb
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\x64\Debug\MIPSInterpreter.exe.config
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.csproj.AssemblyReference.cache
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow3.baml
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow7.baml
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow8.baml
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow9.baml
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow6.baml
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow5 .baml
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow4.baml
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\MainWindow.baml
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.g.resources
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.Properties.Resources.resources
@@ -30,3 +16,5 @@ C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BING
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.csproj.CoreCompileInputs.cache
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.exe
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.pdb
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow.g.cs
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow.baml
