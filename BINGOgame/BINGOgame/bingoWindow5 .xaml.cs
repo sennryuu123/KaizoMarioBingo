@@ -31,7 +31,7 @@ namespace BINGOgame
         List<BINGOgame.MainWindow.STAR_INFO> bingoCardList = new List<BINGOgame.MainWindow.STAR_INFO>();
         List<ObservableCollection<BINGOgame.MainWindow.STAR_NAME_INFO>> starNameInfoList;
         MemoryManager mm = new MemoryManager(null);
-        Thread magicThread;
+        Thread magicThread = null;
         bool[] starGetFlag;
         public List<TextBlock> BingoTextList = new List<TextBlock>();
         static string[] processNames = {
@@ -122,7 +122,7 @@ namespace BINGOgame
 
         public async void bingoCtrlFromPj64()
         {
-LABEL1:
+        LABEL1:
             /* PJ64の起動を待つ */
             while (true)
             {
@@ -138,12 +138,15 @@ LABEL1:
                 await Task.Delay(1000);
             }
 
-            magicThread = new Thread(doMagicThread);
-            magicThread.Start();
-
             /* ハックをロードする */
             while (true)
             {
+                if (mm.ProcessActive())
+                {
+                    /* 終了したらスレッドの先頭に戻る */
+                    goto LABEL1;
+                }
+
                 if (mm.GetTitle().Contains("-"))
                 {
                     /* ロードしたら抜ける */
@@ -153,8 +156,19 @@ LABEL1:
                 await Task.Delay(1000);
             }
 
+            /* ROMとRAM周りの初期化処理をしているっぽい？ */
+            /* stardisplayのソースコードと同じ処理にしている */
+            magicThread = new Thread(doMagicThread);
+            magicThread.Start();
+
             while (true) 
             {
+                if (mm.ProcessActive())
+                {
+                    /* 終了したらスレッドの先頭に戻る */
+                    goto LABEL1;
+                }
+
                 if (mm.isReadyToRead())
                     break;
 

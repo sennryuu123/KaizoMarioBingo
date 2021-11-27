@@ -28,6 +28,5 @@ C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BING
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.Properties.Resources.resources
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.csproj.GenerateResource.cache
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.csproj.CoreCompileInputs.cache
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.csproj.CopyComplete
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.exe
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.pdb
