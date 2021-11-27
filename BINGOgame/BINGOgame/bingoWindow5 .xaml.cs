@@ -29,7 +29,6 @@ namespace BINGOgame
         int seedNum;
         int bingoSize;
         List<BINGOgame.MainWindow.STAR_INFO> bingoCardList = new List<BINGOgame.MainWindow.STAR_INFO>();
-        List<ObservableCollection<BINGOgame.MainWindow.STAR_NAME_INFO>> starNameInfoList;
         MemoryManager mm = new MemoryManager(null);
         Thread magicThread = null;
         bool[] starGetFlag;
@@ -50,10 +49,43 @@ namespace BINGOgame
         /* タイマースタート */
         System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 
+        string[] MySplit(string str, int count)
+        {
+            var list = new List<string>();
+            int length = (int)Math.Ceiling((double)str.Length / count);
+
+            if (length == 0)
+            {
+                list.Add("");
+            }
+            else
+            {
+                for (int i = 0; i < length; i++)
+                {
+                    int start = count * i;
+                    if (str.Length <= start)
+                    {
+                        break;
+                    }
+                    if (str.Length < start + count)
+                    {
+                        list.Add(str.Substring(start));
+                    }
+                    else
+                    {
+                        list.Add(str.Substring(start, count));
+                    }
+                }
+            }
+
+            return list.ToArray();
+        }
+
+
         public bingoWindow5(
-            string hack_name, 
-            int seed_num, 
-            int bingo_size, 
+            string hack_name,
+            int seed_num,
+            int bingo_size,
             List<BINGOgame.MainWindow.STAR_INFO> bingo_card_list)
         {
             InitializeComponent();
@@ -65,37 +97,66 @@ namespace BINGOgame
             seedNum = seed_num;
             bingoSize = bingo_size;
             bingoCardList = bingo_card_list;
-            //starNameInfoList = star_name_info_list;
 
-            BingoTextList.Add(TextBlock_0_0);
-            BingoTextList.Add(TextBlock_0_1);
-            BingoTextList.Add(TextBlock_0_2);
-            BingoTextList.Add(TextBlock_0_3);
-            BingoTextList.Add(TextBlock_0_4);
+            /* ここでTextBlockを作成する */
+            for (int row = 0; row < bingo_size; row++)
+            {
+                for (int col = 0; col < bingo_size; col++)
+                {
+                    TextBlock text_block = new TextBlock();
+                    text_block.Foreground = Brushes.White;
+                    text_block.Background = Brushes.White;
+                    text_block.HorizontalAlignment = (HorizontalAlignment)3;
+                    text_block.VerticalAlignment = (VerticalAlignment)3;
+                    text_block.TextAlignment = (TextAlignment)2;
+                    text_block.Height = double.NaN;
+                    text_block.Width = double.NaN;
+                    text_block.FontSize = 20;
 
-            BingoTextList.Add(TextBlock_1_0);
-            BingoTextList.Add(TextBlock_1_1);
-            BingoTextList.Add(TextBlock_1_2);
-            BingoTextList.Add(TextBlock_1_3);
-            BingoTextList.Add(TextBlock_1_4);
+                    Viewbox view_box = new Viewbox();
+                    view_box.Stretch = (Stretch)1;
+                    view_box.SetValue(Grid.RowProperty, row);
+                    view_box.SetValue(Grid.ColumnProperty, col);
 
-            BingoTextList.Add(TextBlock_2_0);
-            BingoTextList.Add(TextBlock_2_1);
-            BingoTextList.Add(TextBlock_2_2);
-            BingoTextList.Add(TextBlock_2_3);
-            BingoTextList.Add(TextBlock_2_4);
+                    view_box.Child = text_block;
+                    Grid_Bingo_Card.Children.Add(view_box);
 
-            BingoTextList.Add(TextBlock_3_0);
-            BingoTextList.Add(TextBlock_3_1);
-            BingoTextList.Add(TextBlock_3_2);
-            BingoTextList.Add(TextBlock_3_3);
-            BingoTextList.Add(TextBlock_3_4);
+                    BingoTextList.Add(text_block);
+                }
+            }
 
-            BingoTextList.Add(TextBlock_4_0);
-            BingoTextList.Add(TextBlock_4_1);
-            BingoTextList.Add(TextBlock_4_2);
-            BingoTextList.Add(TextBlock_4_3);
-            BingoTextList.Add(TextBlock_4_4);
+            /* TextBlockにスター名を入力する */
+            string[] temp;
+            string name;
+
+            for (int i = 0; i < BingoTextList.Count; i++)
+            {
+                BingoTextList[i].Text = bingoCardList[i].course + " Star" + bingoCardList[i].num + "\n" + bingoCardList[i].name;
+                temp = MySplit(bingoCardList[i].name, 10);
+
+                name = temp[0];
+                for (int j = 1; j < temp.Length; j++)
+                {
+                    name += "\n";
+                    name += temp[j];
+                }
+
+                BingoTextList[i].Text = bingoCardList[i].course + " Star" + bingoCardList[i].num + "\n" + name;
+            }
+
+            /* ここでボーダーを引く */
+            for (int row = 0; row < bingo_size; row++) 
+            {
+                for (int col = 0; col < bingo_size; col++) 
+                {
+                    Border Border = new Border();
+                    Border.BorderBrush = Brushes.Black;
+                    Border.BorderThickness = new Thickness(1);
+                    Border.SetValue(Grid.RowProperty, row);
+                    Border.SetValue(Grid.ColumnProperty, col);
+                    Grid_Bingo_Card.Children.Add(Border);
+                }
+            }
 
             Thread thread = new Thread(new ThreadStart(bingoCtrlFromPj64));
             thread.Start();
@@ -161,7 +222,7 @@ namespace BINGOgame
             magicThread = new Thread(doMagicThread);
             magicThread.Start();
 
-            while (true) 
+            while (true)
             {
                 if (mm.ProcessActive())
                 {
@@ -203,7 +264,7 @@ namespace BINGOgame
                 int i;
                 int offset;
                 byte bit;
-                for (i = 0; i < bingoCardList.Count; i++) 
+                for (i = 0; i < bingoCardList.Count; i++)
                 {
                     offset = bingoCardList[i].offset;
                     bit = (byte)(1 << (bingoCardList[i].num - 1));
@@ -212,7 +273,7 @@ namespace BINGOgame
                     {
                         starGetFlag[i] = true;
                     }
-                    else 
+                    else
                     {
                         starGetFlag[i] = false;
                     }
@@ -236,9 +297,31 @@ namespace BINGOgame
 
         private void Start_Button_Click(object sender, RoutedEventArgs e)
         {
-            for (int i = 0; i < BingoTextList.Count; i++) 
+            double max_height = (800 * (5.0 / 7.0)) / 5.0;
+            double max_width = 150.0;
+            double min_font_size = 0;
+
+            for (int i = 0; i < BingoTextList.Count; i++)
             {
-                BingoTextList[i].Text = bingoCardList[i].course + " Star" + bingoCardList[i].num + "\n" + bingoCardList[i].name;
+                if (i == 0)
+                {
+                    min_font_size = BingoTextList[i].FontSize;
+                }
+                else
+                {
+                    if (min_font_size > BingoTextList[i].FontSize)
+                    {
+                        min_font_size = BingoTextList[i].FontSize;
+                    }
+                }
+            }
+
+            for (int i = 0; i < BingoTextList.Count; i++)
+            {
+                BingoTextList[i].Foreground = Brushes.Black;
+                BingoTextList[i].FontSize = min_font_size;
+                BingoTextList[i].Height = max_height;
+                BingoTextList[i].Width = max_width;
             }
 
             timer.Start(); /* 時刻表示用タイマー */
@@ -266,13 +349,13 @@ namespace BINGOgame
             var off_color = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0xff));
             var on_color = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0x33));
 
-            for (int i = 0; i < BingoTextList.Count; i++) 
+            for (int i = 0; i < BingoTextList.Count; i++)
             {
-                if(starGetFlag[i])
+                if (starGetFlag[i])
                 {
                     BingoTextList[i].Background = on_color;
                 }
-                else 
+                else
                 {
                     BingoTextList[i].Background = off_color;
                 }
@@ -295,6 +378,7 @@ namespace BINGOgame
             _timer.Start();
         }
 
+#if false
         private void TextBlock_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             TextBlock temp;
@@ -317,6 +401,7 @@ namespace BINGOgame
                 temp.Background = off_color;
             }
         }
+#endif
 
         private void Seed_Copy_Button_Click(object sender, RoutedEventArgs e)
         {
