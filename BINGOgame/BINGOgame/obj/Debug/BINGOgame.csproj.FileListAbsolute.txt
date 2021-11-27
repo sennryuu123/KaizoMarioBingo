@@ -75,4 +75,3 @@ C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Debug\BINGOgam
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Debug\MIPSInterpreter.exe
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Debug\MIPSInterpreter.pdb
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Debug\MIPSInterpreter.exe.config
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Debug\BINGOgame.csproj.CopyComplete

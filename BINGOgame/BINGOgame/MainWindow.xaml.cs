@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.IO;
 using System.Collections.ObjectModel;
+using Microsoft.Win32;
 
 
 namespace BINGOgame
@@ -37,6 +38,7 @@ namespace BINGOgame
         ObservableCollection<STAR_NAME_INFO> normalStarNameInfo = new ObservableCollection<STAR_NAME_INFO>();
         ObservableCollection<STAR_NAME_INFO> redsStarNameInfo   = new ObservableCollection<STAR_NAME_INFO>();
         ObservableCollection<STAR_NAME_INFO> coinsStarNameInfo  = new ObservableCollection<STAR_NAME_INFO>();
+        List<ObservableCollection<STAR_NAME_INFO>> starNameInfoList = new List<ObservableCollection<STAR_NAME_INFO>>();
         List<STAR_INFO> starList = new List<STAR_INFO>();
         List<STAR_INFO> selectedStarList = new List<STAR_INFO>();
         List<STAR_INFO> bingoCardList = new List<STAR_INFO>();
@@ -62,10 +64,26 @@ namespace BINGOgame
         }
 
         public MainWindow()
-        {    
-            /* テキストファイルからデータを読み出す */
-            if (result_t.NG == textRead())
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.Filter = "Text documents (.txt)|*.txt";
+            bool? result = openFileDialog.ShowDialog();
+
+            if (result == true)
             {
+                string fileName = openFileDialog.FileName;
+
+                /* テキストファイルからデータを読み出す */
+                if (result_t.NG == textRead(fileName))
+                {
+                    MessageBox.Show("config.txtの内容が不適です。");
+                    Application.Current.Shutdown();
+                }
+            }
+            else
+            {
+                MessageBox.Show("config.txtの内容が不適です。");
                 Application.Current.Shutdown();
             }
 
@@ -81,10 +99,10 @@ namespace BINGOgame
         /// 
         /// return result_t 
         /// </summary>
-        public result_t textRead()
+        public result_t textRead(string fileName)
         {
             /* テキスト読み出し */
-            using (StreamReader sr = new StreamReader("config.txt"))
+            using (StreamReader sr = new StreamReader(fileName))
             {
                 bool flag_hack = false;
                 bool flag_normal = false;
@@ -283,7 +301,6 @@ namespace BINGOgame
                 }
                 else
                 {
-                    MessageBox.Show("config.txtの内容が不適です。");
                     return (result_t.NG);
                 }
             }
@@ -501,6 +518,11 @@ namespace BINGOgame
                 cnt++;
             }
 
+            starNameInfoList.Add(normalStarNameInfo);
+            starNameInfoList.Add(redsStarNameInfo);
+            starNameInfoList.Add(coinsStarNameInfo);
+
+            seed -= bingo_size;
             switch (bingo_size) 
             {
                 case 3:

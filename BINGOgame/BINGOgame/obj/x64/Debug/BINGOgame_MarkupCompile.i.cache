@@ -4,7 +4,7 @@
 winexe
 C#
 .cs
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Debug\
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\
 BINGOgame
 none
 false
@@ -12,9 +12,9 @@ DEBUG;TRACE
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\App.xaml
 8686802036
 
-20-1648583062
+20515515924
 14503205595
 bingoWindow3.xaml;bingoWindow7.xaml;bingoWindow8.xaml;bingoWindow9.xaml;bingoWindow6.xaml;bingoWindow5 .xaml;bingoWindow4.xaml;MainWindow.xaml;
 
-False
+True
 

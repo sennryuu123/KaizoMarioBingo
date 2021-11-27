@@ -16,6 +16,7 @@ using System.ComponentModel;
 using System.Windows.Threading;
 using System.Diagnostics;
 using System.Threading;
+using System.Collections.ObjectModel;
 
 namespace BINGOgame
 {
@@ -24,11 +25,12 @@ namespace BINGOgame
     /// </summary>
     public partial class bingoWindow5 : Window
     {
-        string Hack_name;
-        int Seed;
-        int Bingo_size;
-        List<BINGOgame.MainWindow.STAR_INFO> Bingo_card_list = new List<BINGOgame.MainWindow.STAR_INFO>();
-        MemoryManager mm;
+        string hackName;
+        int seedNum;
+        int bingoSize;
+        List<BINGOgame.MainWindow.STAR_INFO> bingoCardList = new List<BINGOgame.MainWindow.STAR_INFO>();
+        List<ObservableCollection<BINGOgame.MainWindow.STAR_NAME_INFO>> starNameInfoList;
+        MemoryManager mm = new MemoryManager(null);
         Thread magicThread;
         bool[] starGetFlag;
         public List<TextBlock> BingoTextList = new List<TextBlock>();
@@ -48,23 +50,22 @@ namespace BINGOgame
         /* タイマースタート */
         System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
 
-        public bingoWindow5(string hack_name, int seed, int bingo_size, List<BINGOgame.MainWindow.STAR_INFO> bingo_card_list)
+        public bingoWindow5(
+            string hack_name, 
+            int seed_num, 
+            int bingo_size, 
+            List<BINGOgame.MainWindow.STAR_INFO> bingo_card_list)
         {
             InitializeComponent();
 
-            TextBlock_Seed.Text = seed.ToString();
+            TextBlock_Seed.Text = seed_num.ToString();
             this.Title = hack_name + " BINGO";
 
-            Hack_name = hack_name;
-            Seed = seed;
-            Bingo_size = bingo_size;
-            Bingo_card_list = bingo_card_list;
-
-            System.Diagnostics.Debug.WriteLine("\n\n\nBINGO CARD");
-            System.Diagnostics.Debug.WriteLine(seed.ToString());
-            System.Diagnostics.Debug.WriteLine(bingo_size.ToString());
-            System.Diagnostics.Debug.WriteLine(bingo_card_list[0].name);
-            System.Diagnostics.Debug.WriteLine(bingo_card_list[bingo_size * bingo_size - 1].name);
+            hackName = hack_name;
+            seedNum = seed_num;
+            bingoSize = bingo_size;
+            bingoCardList = bingo_card_list;
+            //starNameInfoList = star_name_info_list;
 
             BingoTextList.Add(TextBlock_0_0);
             BingoTextList.Add(TextBlock_0_1);
@@ -137,8 +138,11 @@ LABEL1:
                 await Task.Delay(1000);
             }
 
+            magicThread = new Thread(doMagicThread);
+            magicThread.Start();
+
             /* ハックをロードする */
-            while (true) 
+            while (true)
             {
                 if (mm.GetTitle().Contains("-"))
                 {
@@ -148,9 +152,6 @@ LABEL1:
 
                 await Task.Delay(1000);
             }
-
-            magicThread = new Thread(doMagicThread);
-            magicThread.Start();
 
             while (true) 
             {
@@ -188,10 +189,10 @@ LABEL1:
                 int i;
                 int offset;
                 byte bit;
-                for (i = 0; i < Bingo_card_list.Count; i++) 
+                for (i = 0; i < bingoCardList.Count; i++) 
                 {
-                    offset = Bingo_card_list[i].offset;
-                    bit = (byte)(1 << (Bingo_card_list[i].num - 1));
+                    offset = bingoCardList[i].offset;
+                    bit = (byte)(1 << (bingoCardList[i].num - 1));
 
                     if ((stars[offset] & bit) == bit)
                     {
@@ -223,7 +224,7 @@ LABEL1:
         {
             for (int i = 0; i < BingoTextList.Count; i++) 
             {
-                BingoTextList[i].Text = Bingo_card_list[i].course + " Star" + Bingo_card_list[i].num + "\n" + Bingo_card_list[i].name;
+                BingoTextList[i].Text = bingoCardList[i].course + " Star" + bingoCardList[i].num + "\n" + bingoCardList[i].name;
             }
 
             timer.Start(); /* 時刻表示用タイマー */
