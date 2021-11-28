@@ -33,7 +33,9 @@ namespace BINGOgame
         Thread magicThread = null;
         bool[] starGetFlag;
         public List<TextBlock> BingoTextList = new List<TextBlock>();
-        int maxCol = 0;
+        int maxCol = 0; /* 1マスにスター名を入れた時の最大改行数 */
+        double defaultHeight;
+        double defaultWidth;
         static string[] processNames = {
             "project64", "project64d",
             "mupen64-rerecording",
@@ -86,10 +88,14 @@ namespace BINGOgame
             string hack_name,
             int seed_num,
             int bingo_size,
-            List<BINGOgame.MainWindow.STAR_INFO> bingo_card_list)
+            List<BINGOgame.MainWindow.STAR_INFO> bingo_card_list,
+            double window_rate)
         {
             Application.Current.MainWindow = this;
             InitializeComponent();
+
+            defaultHeight = 840 * window_rate;
+            defaultWidth  = 640 * window_rate;
 
             TextBlock_Seed.Text = seed_num.ToString();
             this.Title = hack_name + " BINGO";
@@ -425,23 +431,10 @@ namespace BINGOgame
             Clipboard.SetText(TextBlock_Timer.Text);
         }
 
-        private void Back_Button_Click(object sender, RoutedEventArgs e)
+        private void Resize_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("ルール設定画面に戻ります\n" +
-                                "よろしいですか？\n",
-                                "Warning",
-                                MessageBoxButton.YesNo,
-                                MessageBoxImage.Warning)
-                                == MessageBoxResult.Yes)
-            {
-                var main_window = new MainWindow();
-                main_window.Show();
-                this.Close();
-            }
-            else
-            {
-                return;
-            }
+            this.Height = defaultHeight;
+            this.Width  = defaultWidth;
         }
 
         void Bingo_Window_Closing(object sender, CancelEventArgs e)

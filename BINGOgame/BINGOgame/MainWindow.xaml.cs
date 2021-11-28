@@ -24,13 +24,12 @@ namespace BINGOgame
     /// </summary>
     public partial class MainWindow : Window
     {
-        double windowRate = 0.8; /* ビンゴカードウィンドウのサイズを決める値*/
+        double windowRate = 1; /* ビンゴカードウィンドウのサイズを決める値*/
         string hack_name;                           /* ハック名 */
         string[] normal_star_list = new string[256]; /* ノーマルスター  */
         string[] reds_star_list = new string[256]; /* 赤コインスター  */
         string[] coins_star_list = new string[256]; /* 100コインスター */
         string[] selected_star_list = new string[256 * 4];
-        string[] bingo_card_list = new string[256 * 4];
         int normal_star_num;
         int reds_star_num;
         int coins_star_num;
@@ -426,6 +425,19 @@ namespace BINGOgame
             int seed;
             int i;
 
+            /* ウィンドウ拡大率取得 */
+            if (!double.TryParse(TextBox_Window_Rate.Text, out windowRate))
+            {
+                MessageBox.Show("ウィンドウ拡大率が数値ではありません。");
+                goto LABEL2;
+            }
+
+            if ((windowRate < 0.5) || (windowRate > 1.5)) 
+            {
+                MessageBox.Show("ウィンドウ拡大率が適正値ではありません。");
+                goto LABEL2;
+            }
+
             /* 配置するスターリスト取得 */
             i = 0;
             foreach (var starInfo in normalStarNameInfo)
@@ -462,14 +474,14 @@ namespace BINGOgame
             if ((bingo_size < 3) || (bingo_size > 9))  
             {
                 MessageBox.Show("対応していないビンゴサイズです。");
-                return;
+                goto LABEL2;
             }
 
             /* シード値取得 */
             if (upper_star_num > selected_star_num)
             {
                 MessageBox.Show("スター数が不足しています。");
-                return;
+                goto LABEL2;
             }
 
             /* シード値が空の場合は、ランダムなシード値を設定する  */
@@ -483,14 +495,14 @@ namespace BINGOgame
                 if (!int.TryParse(TextBox_Seed.Text, out seed))
                 {
                     MessageBox.Show("シード値が数値ではありません。");
-                    return;
+                    goto LABEL2;
                 }
 
                 /* シード値の桁数が9桁以下か判定する  */
                 if (9 < (seed.ToString().Length))
                 {
                     MessageBox.Show("シード値が大きすぎます。");
-                    return;
+                    goto LABEL2;
                 }
             }
 
@@ -518,7 +530,6 @@ namespace BINGOgame
                 bingo_card_list_index[cnt] = temp_index;               /* 同値判定用配列に格納 */
 
                 bingoCardList.Add(selectedStarList[temp_index]);
-                System.Diagnostics.Debug.WriteLine(bingo_card_list[cnt]);
 
                 cnt++;
             }
@@ -528,18 +539,52 @@ namespace BINGOgame
             starNameInfoList.Add(coinsStarNameInfo);
 
             seed -= bingo_size;
-            var bingo_card = new bingoWindow(hack_name, seed, bingo_size, bingoCardList);
-            bingo_card.Height = 1050 * windowRate;
-            bingo_card.Width = 800 * windowRate;
+
+            List<STAR_INFO> bingo_card_list = new List<STAR_INFO>(bingoCardList);
+            var bingo_card = new bingoWindow(hack_name, seed, bingo_size, bingo_card_list, windowRate);
+            bingo_card.Height = 840 * windowRate;
+            bingo_card.Width  = 640 * windowRate;
             bingo_card.Show();
 
-            this.Close();
+        LABEL2:
+            bingoCardList.Clear();
+            selectedStarList.Clear();
+
+            //this.Close();
         }
 
 
         private void Reload_Button_Click(object sender, RoutedEventArgs e)
         {
-            /* TBD */
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.FilterIndex = 1;
+            openFileDialog.Filter = "Text documents (.txt)|*.txt";
+            bool? result = openFileDialog.ShowDialog();
+
+            if (result == true)
+            {
+                string fileName = openFileDialog.FileName;
+
+                /* テキストファイルからデータを読み出す */
+                if (result_t.NG == textRead(fileName))
+                {
+                    MessageBox.Show("再読み込みに失敗しました。");
+                    return;
+                }
+            }
+            else
+            {
+                MessageBox.Show("再読み込みに失敗しました。");
+                return;
+            }
+
+            all_chk_normal.IsChecked = false;
+            all_chk_reds.IsChecked = false;
+            all_chk_coins.IsChecked = false;
+
+            all_chk_normal.IsChecked = true;
+            all_chk_reds.IsChecked   = true;
+            all_chk_coins.IsChecked  = true;
         }
     }
 

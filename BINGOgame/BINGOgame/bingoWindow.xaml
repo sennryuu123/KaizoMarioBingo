@@ -52,7 +52,7 @@
                 <StackPanel Orientation=" Horizontal">
                     <Button HorizontalAlignment="Center" Margin="150,0,0,0" FontSize="25" Content="スタート" Height="40" Width="180" Click="Start_Button_Click"/>
                     <Button HorizontalAlignment="Center" Margin="30,0,0,0"  FontSize="25" Content="終了"    Height="40" Width="180" Click="End_Button_Click"/>
-                    <Button HorizontalAlignment="Center" Margin="80,10,0,0" FontSize="15" Content="ルール設定"    Height="30" Width="70" Click="Back_Button_Click"/>
+                    <Button HorizontalAlignment="Center" Margin="80,10,0,0"  FontSize="15" Content="リサイズ" Height="30" Width="70" Click="Resize_Button_Click"/>
                 </StackPanel>
             </Viewbox>
         </Grid>
