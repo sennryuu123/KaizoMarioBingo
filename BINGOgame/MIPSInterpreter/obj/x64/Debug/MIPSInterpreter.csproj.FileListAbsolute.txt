@@ -1,0 +1,6 @@
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\MIPSInterpreter\obj\x64\Debug\MIPSInterpreter.csproj.CoreCompileInputs.cache
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\MIPSInterpreter\bin\x64\Debug\MIPSInterpreter.exe.config
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\MIPSInterpreter\bin\x64\Debug\MIPSInterpreter.exe
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\MIPSInterpreter\bin\x64\Debug\MIPSInterpreter.pdb
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\MIPSInterpreter\obj\x64\Debug\MIPSInterpreter.exe
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\MIPSInterpreter\obj\x64\Debug\MIPSInterpreter.pdb

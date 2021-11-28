@@ -1,0 +1,86 @@
+﻿<Window x:Class="BINGOgame.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BINGOgame"
+        mc:Ignorable="d"
+        Title="改造マリオビンゴ ルール設定" Height="600" Width="1000" Loaded="Window_Loaded" ResizeMode="CanMinimize">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+        
+        <StackPanel>
+            <StackPanel Orientation=" Horizontal">
+                <CheckBox Name="all_chk_normal" Margin="10,10,0,0" Checked="all_chk_normal_checked" Unchecked="all_chk_normal_unchecked" IsChecked="True"/>
+                <TextBlock HorizontalAlignment="Left" Height="20" Margin="0,10,0,0" TextWrapping="Wrap" Text="ノーマルスター" Width="70"/>
+            </StackPanel>
+            <ListBox Name="listbox_normal" ItemsSource="{Binding}" Height="520" SelectionMode="Multiple" Margin="10,0,10,0" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox IsChecked="{Binding Path=chk}" Content="{Binding Path=name}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1">
+            <StackPanel Orientation=" Horizontal">
+                <CheckBox Name="all_chk_reds" Margin="10,10,0,0" Checked="all_chk_reds_checked" Unchecked="all_chk_reds_unchecked" IsChecked="True"/>
+                <TextBlock HorizontalAlignment="Left" Height="20" Margin="0,10,0,0" TextWrapping="Wrap" Text="Reds" Width="70"/>
+            </StackPanel>
+          
+            <ListBox Name="listbox_reds" ItemsSource="{Binding}" Height="520" SelectionMode="Multiple" Margin="10,0,10,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox IsChecked="{Binding Path=chk}" Content="{Binding Path=name}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <StackPanel Grid.Column="2">
+            <StackPanel Orientation=" Horizontal">
+                <CheckBox Name="all_chk_coins" Margin="10,10,0,0" Checked="all_chk_coins_checked" Unchecked="all_chk_coins_unchecked" IsChecked="True"/>
+                <TextBlock HorizontalAlignment="Left" Height="20" Margin="0,10,0,0" TextWrapping="Wrap" Text="100 Coins" Width="70"/>
+            </StackPanel>
+
+            <ListBox Name="listbox_coins" ItemsSource="{Binding}" Height="520" SelectionMode="Multiple" Margin="10,0,10,0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox IsChecked="{Binding Path=chk}" Content="{Binding Path=name}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+
+        <StackPanel Grid.Column="3">
+            <TextBlock HorizontalAlignment="Left" Height="20" Margin="10,10,0,0" TextWrapping="Wrap" Text="ビンゴサイズ" Width="100"/>
+
+            <ComboBox x:Name="ComboBox_BingoSize" HorizontalAlignment="Left" Height="20" Margin="10,0,0,0" Text="5" Width="100"/>
+
+            <TextBlock HorizontalAlignment="Left" Height="20" Margin="10,10,0,0" TextWrapping="Wrap" Text="シード値(最大9桁)" Width="100"/>
+            <TextBox x:Name="TextBox_Seed"   HorizontalAlignment="Left" Height="20" Margin="10,0,0,0"  TextWrapping="Wrap" Text=""         Width="100"/>
+
+            <TextBlock HorizontalAlignment="Left" Height="20" Margin="10,10,0,0" TextWrapping="Wrap" Text="ウィンドウ拡大率 (0.5~1.5)" Width="160"/>
+            <TextBox x:Name="TextBox_Window_Rate"   HorizontalAlignment="Left" Height="20" Margin="10,0,0,0"  TextWrapping="Wrap" Text="1"         Width="100"/>
+            <TextBlock HorizontalAlignment="Left" Height="40" Margin="10,10,0,0" TextWrapping="Wrap" Text="※標準ウィンドウサイズ&#10;　640×840 " Width="110"/>
+            
+            <Button HorizontalAlignment="Center" Height="40" Margin="0,050,0,0" Content="スターリスト&#10;再読み込み" Width="100" Click="Reload_Button_Click"/>
+            <Button HorizontalAlignment="Center" Height="40" Margin="0,20,0,0" Content="OK"         Width="100" Click="OK_Button_Click"/>
+
+
+
+        </StackPanel>
+    </Grid>
+
+
+</Window>
