@@ -88,6 +88,7 @@ namespace BINGOgame
             int bingo_size,
             List<BINGOgame.MainWindow.STAR_INFO> bingo_card_list)
         {
+            Application.Current.MainWindow = this;
             InitializeComponent();
 
             TextBlock_Seed.Text = seed_num.ToString();
@@ -335,7 +336,6 @@ namespace BINGOgame
                 BingoTextList[i].Height = max_height;
                 BingoTextList[i].Width = max_width;
             }
-
             timer.Start(); /* 時刻表示用タイマー */
             SetupTimer();  /* 定期処理用タイマー */
             TextBlock_Timer.Text = timer.Elapsed.ToString(@"hh\:mm\:ss");
@@ -442,6 +442,18 @@ namespace BINGOgame
             {
                 return;
             }
+        }
+
+        void Bingo_Window_Closing(object sender, CancelEventArgs e)
+        {
+            if (!timer.IsRunning)
+            {
+                return;
+            }
+
+            /* タイマーストップ */
+            timer.Stop();
+            _timer.Stop();
         }
     }
 }

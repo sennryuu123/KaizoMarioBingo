@@ -47,24 +47,10 @@ C:\Users\akuro\Desktop\bingo\KaizoMarioBingo-add_ver_beta\KaizoMarioBingo-add_ve
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Release\BINGOgame.exe.config
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Release\BINGOgame.exe
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Release\BINGOgame.pdb
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow3.g.cs
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow7.g.cs
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow8.g.cs
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow9.g.cs
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow6.g.cs
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow5 .g.cs
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow4.g.cs
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\MainWindow.g.cs
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\App.g.cs
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOgame_MarkupCompile.cache
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOgame_MarkupCompile.lref
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow3.baml
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow7.baml
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow8.baml
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow9.baml
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow6.baml
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow5 .baml
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow4.baml
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\MainWindow.baml
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOgame.g.resources
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOgame.Properties.Resources.resources
@@ -76,3 +62,6 @@ C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOg
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Release\MIPSInterpreter.exe
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Release\MIPSInterpreter.pdb
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\bin\Release\MIPSInterpreter.exe.config
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow.g.cs
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\bingoWindow.baml
+C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\Release\BINGOgame.csproj.CopyComplete

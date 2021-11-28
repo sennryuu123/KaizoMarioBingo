@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BINGOgame"
         mc:Ignorable="d"
+        Closing="Bingo_Window_Closing"  
         Title="改造マリオ ビンゴカード" Height="525" Width="400">
 
     <Grid Background="#b6ffff">
