@@ -128,6 +128,7 @@ namespace BINGOgame
                     text_block.Height = double.NaN;
                     text_block.Width = double.NaN;
                     text_block.FontSize = 20;
+                    text_block.PreviewMouseDown += (MouseButtonEventHandler)TextBlock_PreviewMouseDown;
 
                     Viewbox view_box = new Viewbox();
                     view_box.Stretch = (Stretch)1;
@@ -327,6 +328,11 @@ namespace BINGOgame
 
         private void Start_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (timer.IsRunning)
+            {
+                return;
+            }
+
             double max_height;
             double max_width;
             double font_size = 0;
@@ -364,8 +370,9 @@ namespace BINGOgame
         {
             TextBlock_Timer.Text = timer.Elapsed.ToString(@"hh\:mm\:ss");
 
-            var off_color = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0xff));
-            var on_color = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0x33));
+            var off_color   = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0xff));
+            var on_color    = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0x33));
+            var check_color = new SolidColorBrush(Color.FromRgb(0xad, 0xad, 0xad));
 
             for (int i = 0; i < BingoTextList.Count; i++)
             {
@@ -375,7 +382,10 @@ namespace BINGOgame
                 }
                 else
                 {
-                    BingoTextList[i].Background = off_color;
+                    if (((SolidColorBrush)BingoTextList[i].Background).Color != check_color.Color)
+                    {
+                        BingoTextList[i].Background = off_color;
+                    }
                 }
             }
         }
@@ -396,12 +406,13 @@ namespace BINGOgame
             _timer.Start();
         }
 
-#if false
+#if true
         private void TextBlock_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             TextBlock temp;
-            var off_color = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0xff));
-            var on_color = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0x33));
+            var off_color   = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0xff));
+            var on_color    = new SolidColorBrush(Color.FromRgb(0xff, 0xff, 0x33));
+            var check_color = new SolidColorBrush(Color.FromRgb(0xad, 0xad, 0xad));
 
             if (!timer.IsRunning)
             {
@@ -412,9 +423,9 @@ namespace BINGOgame
 
             if (((SolidColorBrush)temp.Background).Color == off_color.Color)
             {
-                temp.Background = on_color;
+                temp.Background = check_color;
             }
-            else
+            else if (((SolidColorBrush)temp.Background).Color != on_color.Color)
             {
                 temp.Background = off_color;
             }
