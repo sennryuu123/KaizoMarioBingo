@@ -73,8 +73,6 @@
             <TextBlock HorizontalAlignment="Left" Height="20" Margin="10,10,0,0" TextWrapping="Wrap" Text="ウィンドウ拡大率 (0.5~1.5)" Width="160"/>
             <TextBox x:Name="TextBox_Window_Rate"   HorizontalAlignment="Left" Height="20" Margin="10,0,0,0"  TextWrapping="Wrap" Text="1"         Width="100"/>
             <TextBlock HorizontalAlignment="Left" Height="40" Margin="10,10,0,0" TextWrapping="Wrap" Text="※標準ウィンドウサイズ&#10;　640×840 " Width="110"/>
-            
-            <Button HorizontalAlignment="Center" Height="40" Margin="0,050,0,0" Content="スターリスト&#10;再読み込み" Width="100" Click="Reload_Button_Click"/>
             <Button HorizontalAlignment="Center" Height="40" Margin="0,20,0,0" Content="OK"         Width="100" Click="OK_Button_Click"/>
 
 

@@ -26,10 +26,10 @@ namespace BINGOgame
     {
         double windowRate = 1; /* ビンゴカードウィンドウのサイズを決める値*/
         string hack_name;                           /* ハック名 */
-        string[] normal_star_list = new string[256]; /* ノーマルスター  */
-        string[] reds_star_list = new string[256]; /* 赤コインスター  */
-        string[] coins_star_list = new string[256]; /* 100コインスター */
-        string[] selected_star_list = new string[256 * 4];
+        string[] normal_star_list = new string[2*1024]; /* ノーマルスター  */
+        string[] reds_star_list = new string[2 * 1024]; /* 赤コインスター  */
+        string[] coins_star_list = new string[2 * 1024]; /* 100コインスター */
+        string[] selected_star_list = new string[1024 * 4];
         int normal_star_num;
         int reds_star_num;
         int coins_star_num;
@@ -316,7 +316,7 @@ namespace BINGOgame
         {
             result_t ret = result_t.OK;
 
-            for (int i = 3; i <= 9; i++) 
+            for (int i = 3; i <= 13; i++) 
             {
                 ComboBox_BingoSize.Items.Add(i);
             }
@@ -471,7 +471,7 @@ namespace BINGOgame
             bingo_size = (int)ComboBox_BingoSize.SelectedItem;
             upper_star_num = bingo_size * bingo_size;
 
-            if ((bingo_size < 3) || (bingo_size > 9))  
+            if ((bingo_size < 3) || (bingo_size > 13))  
             {
                 MessageBox.Show("対応していないビンゴサイズです。");
                 goto LABEL2;
@@ -509,7 +509,7 @@ namespace BINGOgame
             System.Diagnostics.Debug.WriteLine("seed値:" + seed.ToString());
 
             /* ビンゴカードに配置するスターを取得 */
-            int[] bingo_card_list_index = Enumerable.Repeat<int>(-1, 10 * 10).ToArray(); /* ビンゴサイズの最大値+1 */
+            int[] bingo_card_list_index = Enumerable.Repeat<int>(-1, 14 * 14).ToArray(); /* ビンゴサイズの最大値+1 */
             int temp_index;
             int cnt = 0;
 

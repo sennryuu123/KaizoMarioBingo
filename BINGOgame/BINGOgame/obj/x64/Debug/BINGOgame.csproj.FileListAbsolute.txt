@@ -18,4 +18,3 @@ C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BING
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.pdb
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow.g.cs
 C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\bingoWindow.baml
-C:\Users\tomoki\Documents\KaizoMarioBingo\BINGOgame\BINGOgame\obj\x64\Debug\BINGOgame.csproj.CopyComplete

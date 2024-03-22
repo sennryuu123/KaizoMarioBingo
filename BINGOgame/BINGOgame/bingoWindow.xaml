@@ -10,10 +10,10 @@
 
     <Grid Background="#b6ffff">
         <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
             <RowDefinition Height="5*"/>
-            <RowDefinition Height="0.5*"/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="1*" />
@@ -50,9 +50,8 @@
         <Grid Grid.Row="3" Grid.Column="1">
             <Viewbox>
                 <StackPanel Orientation=" Horizontal">
-                    <Button HorizontalAlignment="Center" Margin="150,0,0,0" FontSize="25" Content="スタート" Height="40" Width="180" Click="Start_Button_Click"/>
+                    <Button HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="25" Content="スタート" Height="40" Width="180" Click="Start_Button_Click"/>
                     <Button HorizontalAlignment="Center" Margin="30,0,0,0"  FontSize="25" Content="終了"    Height="40" Width="180" Click="End_Button_Click"/>
-                    <Button HorizontalAlignment="Center" Margin="80,10,0,0"  FontSize="15" Content="リサイズ" Height="30" Width="70" Click="Resize_Button_Click"/>
                 </StackPanel>
             </Viewbox>
         </Grid>
