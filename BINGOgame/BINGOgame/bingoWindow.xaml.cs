@@ -28,6 +28,7 @@ namespace BINGOgame
         string hackName;
         int seedNum;
         int bingoSize;
+        bool capFlag;
         List<BINGOgame.MainWindow.STAR_INFO> bingoCardList = new List<BINGOgame.MainWindow.STAR_INFO>();
         MemoryManager mm = new MemoryManager(null);
         Thread magicThread = null;
@@ -89,13 +90,14 @@ namespace BINGOgame
             int seed_num,
             int bingo_size,
             List<BINGOgame.MainWindow.STAR_INFO> bingo_card_list,
-            double window_rate)
+            double window_rate,
+            bool cap_flag)
         {
             Application.Current.MainWindow = this;
             InitializeComponent();
 
             defaultHeight = 840 * window_rate;
-            defaultWidth  = 640 * window_rate;
+            defaultWidth  = 840 * window_rate;
 
             TextBlock_Seed.Text = seed_num.ToString();
             this.Title = hack_name + " BINGO";
@@ -104,6 +106,7 @@ namespace BINGOgame
             seedNum = seed_num;
             bingoSize = bingo_size;
             bingoCardList = bingo_card_list;
+            capFlag = cap_flag;
 
             /* ここでビンゴカード用Gridを作成する */
             for (int row = 0; row < bingo_size; row++)
@@ -267,6 +270,15 @@ namespace BINGOgame
                 await Task.Delay(1000);
             }
 
+            /* 全てのCAPを有効にする */
+            if (capFlag) 
+            {
+                mm.PerformRead();
+                if((mm.Stars[0xB] & 0x2) != 0x2) mm.WriteToFile(0xB, 1, 0); //wing cap flag on
+                if((mm.Stars[0xB] & 0x4) != 0x4) mm.WriteToFile(0xB, 2, 0); //metal cap flag on
+                if((mm.Stars[0xB] & 0x8) != 0x8) mm.WriteToFile(0xB, 3, 0); //vanish cap flag on
+            }
+
             /* スター取得監視＆点灯処理開始 */
             byte[] stars = new byte[0x70];
             while (true)
@@ -337,7 +349,7 @@ namespace BINGOgame
             double max_width;
             double font_size = 0;
 
-            max_height = (Application.Current.MainWindow.Height / 1.5 * (5.0 / 7.0)) / bingoSize;
+            max_height = (Application.Current.MainWindow.Height / 1.5 * (5.0 / 5.7)) / bingoSize;
             max_width = (Application.Current.MainWindow.Width   / 1.5 * (30.0 / 32.0)) / bingoSize;
             font_size = max_height / (maxCol + 2);
 

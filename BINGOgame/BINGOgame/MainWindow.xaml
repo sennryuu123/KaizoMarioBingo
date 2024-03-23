@@ -17,7 +17,7 @@
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
-        
+
         <StackPanel>
             <StackPanel Orientation=" Horizontal">
                 <CheckBox Name="all_chk_normal" Margin="10,10,0,0" Checked="all_chk_normal_checked" Unchecked="all_chk_normal_unchecked" IsChecked="True"/>
@@ -37,7 +37,7 @@
                 <CheckBox Name="all_chk_reds" Margin="10,10,0,0" Checked="all_chk_reds_checked" Unchecked="all_chk_reds_unchecked" IsChecked="True"/>
                 <TextBlock HorizontalAlignment="Left" Height="20" Margin="0,10,0,0" TextWrapping="Wrap" Text="Reds" Width="70"/>
             </StackPanel>
-          
+
             <ListBox Name="listbox_reds" ItemsSource="{Binding}" Height="520" SelectionMode="Multiple" Margin="10,0,10,0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -72,7 +72,11 @@
 
             <TextBlock HorizontalAlignment="Left" Height="20" Margin="10,10,0,0" TextWrapping="Wrap" Text="ウィンドウ拡大率 (0.5~1.5)" Width="160"/>
             <TextBox x:Name="TextBox_Window_Rate"   HorizontalAlignment="Left" Height="20" Margin="10,0,0,0"  TextWrapping="Wrap" Text="1"         Width="100"/>
-            <TextBlock HorizontalAlignment="Left" Height="40" Margin="10,10,0,0" TextWrapping="Wrap" Text="※標準ウィンドウサイズ&#10;　640×840 " Width="110"/>
+            <TextBlock HorizontalAlignment="Left" Height="40" Margin="10,10,0,0" TextWrapping="Wrap" Width="110"><Run Text="※標準ウィンドウサイズ&#xA;　"/><Run Text="8"/><Run Text="40×840 "/></TextBlock>
+            <StackPanel Orientation=" Horizontal">
+                <CheckBox Name="cap_chk" Margin="10,10,0,0" Checked="cap_checked" Unchecked="cap_unchecked" IsChecked="True"/>
+                <TextBlock HorizontalAlignment="Left" Height="20" Margin="0,10,0,0" TextWrapping="Wrap" Text="CAPを有効にする" Width="100"/>
+            </StackPanel>
             <Button HorizontalAlignment="Center" Height="40" Margin="0,20,0,0" Content="OK"         Width="100" Click="OK_Button_Click"/>
 
 

@@ -26,14 +26,15 @@ namespace BINGOgame
     {
         double windowRate = 1; /* ビンゴカードウィンドウのサイズを決める値*/
         string hack_name;                           /* ハック名 */
-        string[] normal_star_list = new string[2*1024]; /* ノーマルスター  */
-        string[] reds_star_list = new string[2 * 1024]; /* 赤コインスター  */
-        string[] coins_star_list = new string[2 * 1024]; /* 100コインスター */
+        string[] normal_star_list = new string[1024]; /* ノーマルスター  */
+        string[] reds_star_list = new string[1024]; /* 赤コインスター  */
+        string[] coins_star_list = new string[1024]; /* 100コインスター */
         string[] selected_star_list = new string[1024 * 4];
         int normal_star_num;
         int reds_star_num;
         int coins_star_num;
         int selected_star_num;
+        bool cap_flag;
         ObservableCollection<STAR_NAME_INFO> normalStarNameInfo = new ObservableCollection<STAR_NAME_INFO>();
         ObservableCollection<STAR_NAME_INFO> redsStarNameInfo   = new ObservableCollection<STAR_NAME_INFO>();
         ObservableCollection<STAR_NAME_INFO> coinsStarNameInfo  = new ObservableCollection<STAR_NAME_INFO>();
@@ -417,6 +418,16 @@ namespace BINGOgame
             }
         }
 
+        private void cap_checked(object sender, RoutedEventArgs e)
+        {
+            cap_flag = true;
+        }
+
+        private void cap_unchecked(object sender, RoutedEventArgs e)
+        {
+            cap_flag = false;
+        }
+
 
         private void OK_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -541,9 +552,9 @@ namespace BINGOgame
             seed -= bingo_size;
 
             List<STAR_INFO> bingo_card_list = new List<STAR_INFO>(bingoCardList);
-            var bingo_card = new bingoWindow(hack_name, seed, bingo_size, bingo_card_list, windowRate);
+            var bingo_card = new bingoWindow(hack_name, seed, bingo_size, bingo_card_list, windowRate, cap_flag);
             bingo_card.Height = 840 * windowRate;
-            bingo_card.Width  = 640 * windowRate;
+            bingo_card.Width  = 840 * windowRate;
             bingo_card.Show();
 
         LABEL2:

@@ -6,14 +6,14 @@
         xmlns:local="clr-namespace:BINGOgame"
         mc:Ignorable="d"
         Closing="Bingo_Window_Closing"  
-        Title="改造マリオ ビンゴカード" Height="525" Width="400">
+        Title="改造マリオ ビンゴカード" Height="840" Width="840">
 
     <Grid Background="#b6ffff">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.2*"/>
             <RowDefinition Height="5*"/>
-            <RowDefinition Height="0.3*"/>
-            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.25*"/>
+            <RowDefinition Height="0.25*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="1*" />
@@ -50,8 +50,8 @@
         <Grid Grid.Row="3" Grid.Column="1">
             <Viewbox>
                 <StackPanel Orientation=" Horizontal">
-                    <Button HorizontalAlignment="Center" Margin="0,0,0,0" FontSize="25" Content="スタート" Height="40" Width="180" Click="Start_Button_Click"/>
-                    <Button HorizontalAlignment="Center" Margin="30,0,0,0"  FontSize="25" Content="終了"    Height="40" Width="180" Click="End_Button_Click"/>
+                    <Button HorizontalAlignment="Center" Margin="0,0,0,10" FontSize="25" Content="スタート" Height="40" Width="180" Click="Start_Button_Click"/>
+                    <Button HorizontalAlignment="Center" Margin="30,0,0,10"  FontSize="25" Content="終了"    Height="40" Width="180" Click="End_Button_Click"/>
                 </StackPanel>
             </Viewbox>
         </Grid>
